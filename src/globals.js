@@ -23,6 +23,7 @@ export function allocate(space, length, arrayClass) {
     let x = new arrayClass(space, current.ids, length, offset, true);
 
     finalizer.register(x, { space: space, id: current.ids });
+    current.ids++;
     return x
 }
 

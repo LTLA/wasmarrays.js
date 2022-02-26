@@ -143,12 +143,14 @@ export class WasmArray {
 
     /**
      * Free the allocated Wasm memory if this object owns that memory.
-     * If an offset was provided in the constructor, this is a no-op.
      *
      * @return If this object is the owner, memory is freed and this allocation is invalidated.
+     *
+     * If this object is a view, this function is a no-op.
+     * If this function was previously called, further calls will have no effect.
      */
     free() {
-        if (this.#owner && this.#offset !== null) {
+        if (this.#owner === null && this.#offset !== null) {
             release(this.#space, this.#id);
             this.#offset = null;
         }

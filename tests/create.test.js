@@ -29,7 +29,21 @@ function creation_test_suite(creator, expectedClass, expectedSize) {
     expect(z.offset).toBe(0);
     expect(z.length).toBe(25);
     expect(mocked2.used).toBe(expectedSize * 25);
+
     expect(mocked.used).toBe(expectedSize * 30); // unchanged, it's a different memory space.
+
+    // Freeing stuff.
+    expect(mocked.freed.length).toBe(0);
+
+    x.free();
+    expect(x.offset).toBe(null);
+    expect(mocked.freed.length).toBe(1);
+    expect(mocked.freed[0]).toBe(0);
+
+    let prevy = y.offset;
+    y.free();
+    expect(mocked.freed.length).toBe(2);
+    expect(mocked.freed[1]).toBe(prevy);
 }
 
 test("Uint8WasmArrays can be created", () => {
