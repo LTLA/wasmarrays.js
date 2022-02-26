@@ -1,20 +1,7 @@
 // This tests the creation of WasmArrays.
 import * as wa from "../src/index.js";
 import { mockWasmHeap } from "./mock.js";
-
-function compare_arrays(ref, test) {
-    expect(ref.length).toBe(test.length)
-    let all_equal = true;
-    for (var i = 0; i < ref.length; ++i) {
-        if (ref[i] != test[i]) {
-            console.log(ref);
-            console.log(test);
-            all_equal = false;
-            break;
-        }
-    }
-    expect(all_equal).toBe(true);
-}
+import { compareArrays } from "./compare.js";
 
 function methods_test_suite(creator, expectedClass) {
     let mocked = mockWasmHeap();
@@ -36,15 +23,15 @@ function methods_test_suite(creator, expectedClass) {
         values.push(val);
     }
     x.set(values);
-    compare_arrays(values, x.array());
+    compareArrays(values, x.array());
 
     // Slicing.
     let z = x.slice();
     expect(z.constructor.name).toBe(expectedClass);
-    compare_arrays(values, x.slice());
+    compareArrays(values, x.slice());
     expect(z.buffer !== mocked.wasmMemory.buffer).toBe(true);
-    compare_arrays(values.slice(5), x.slice(5));
-    compare_arrays(values.slice(2, 8), x.slice(2, 8));
+    compareArrays(values.slice(5), x.slice(5));
+    compareArrays(values.slice(2, 8), x.slice(2, 8));
 
     // More setting.
     let counter = [1,2,3];
@@ -53,7 +40,7 @@ function methods_test_suite(creator, expectedClass) {
         values[i + shift] = counter[i];
     }
     x.set(counter, 3);
-    compare_arrays(values, x.array());
+    compareArrays(values, x.array());
 
     // Filling.
     x.fill(0);
@@ -69,7 +56,7 @@ function methods_test_suite(creator, expectedClass) {
     expect(x2.offset != x.offset).toBe(true);
 
     let z2 = x2.array();
-    compare_arrays(z2, x.array());
+    compareArrays(z2, x.array());
     expect(x2.array().constructor.name).toBe(expectedClass);
 }
 
