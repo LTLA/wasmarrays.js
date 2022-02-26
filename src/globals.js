@@ -18,12 +18,22 @@ export function allocate(space, length, arrayClass) {
     let curmod = current.module;
     let curlive = current.live;
 
-    let offset = curmod._malloc(arrayClass.valueSize * length);
-    curlive[current.ids] = offset;
-    let x = new arrayClass(space, current.ids, length, offset, null);
+    let offset;
+    let x;
+    try {
+        offset = curmod._malloc(arrayClass.valueSize * length);
+        curlive[current.ids] = offset;
+        x = new arrayClass(space, current.ids, length, offset, null);
 
-    finalizer.register(x, { space: space, id: current.ids });
-    current.ids++;
+        finalizer.register(x, { space: space, id: current.ids });
+        current.ids++;
+    } catch (e) {
+        if (typeof offset !== "undefined") {
+            curmod._free(offset);
+        }
+        throw e;
+    }
+
     return x
 }
 
