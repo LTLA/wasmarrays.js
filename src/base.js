@@ -17,10 +17,11 @@ export class WasmArray {
      * @param {number} id - Identifier for this array in the specified space.
      * @param {number} length - Length of the array.
      * @param {number} offset - Offset on the Wasm heap.
-     * @param {boolean} owner - Whether this instance owns the allocation.
-     * If `false`, it is treated as a view on the heap.
+     * @param {WasmArray} owner - Owner of the memory.
+     * If supplied, the to-be-constructed object is assumed to be a view on the array owned by `owner`.
+     * If `null`, the new object will be the owner of its own allocation.
      *
-     * Users should not be calling the constructor directly;
+     * Users should not be calling this constructor directly;
      * use the `createWasmArray()` function instead.
      */
     constructor(space, id, length, offset, owner) {
@@ -40,6 +41,7 @@ export class WasmArray {
 
     /**
      * @return Identifier for this array in the specified space.
+     * This is `null` if this `WasmArray` instance is a view into an allocation owned by another object.
      */
     get id() {
         return this.#id;
@@ -60,7 +62,9 @@ export class WasmArray {
     }
 
     /**
-     * @return Whether this object owns the allocation.
+     * @return The `WasmArray` that owns the allocation on the Wasm heap.
+     * This is `null` if this `WasmArray` instance owns its own allocation.
+     * Non-`null` values that this instance is a view on an allocation owned by another `WasmArray`.
      */
     get owner() {
         return this.#owner;
@@ -139,6 +143,40 @@ export class WasmArray {
         let output = allocate(this.#space, this.#length, this.constructor);
         output.set(this.array());
         return output;
+    }
+
+    /**
+     * Create a `WasmArray` "view" of the data in this object.
+     *
+     * @param {number} [start] - Position on this array to start the view.
+     * Defaults to the start of the array.
+     * @param {number} [end] - Position on the array to end the view.
+     * Defaults to the end of the array.
+     * Only used if `start` is specified.
+     *
+     * @return A `WasmArray` containing a view on the specified subarray.
+     *
+     * The returned object does not own the memory on the Wasm heap, so `free()` will not have any effect.
+     * It does, however, hold a reference to its parent object, i.e., the `WasmArray` instance on which `view()` was called.
+     * This reference avoids premature garbage collection of the parent and inadvertent invalidation of the views.
+     * Of course, all views will be invalidated if the parent's `free()` method is invoked manually.
+     */
+    view(start, end) {
+        if (typeof start === "undefined") {
+            start = 0;
+        }
+        if (typeof end === "undefined") {
+            end = this.#length;
+        }
+
+        let new_length = end - start;
+        let original_parent = this.#owner;
+        if (original_parent === null) {
+            original_parent = this;
+        }
+
+        let adjust = start * this.constructor.valueSize;
+        return new this.constructor(this.#space, this.#id, new_length, this.#offset + adjust, original_parent);
     }
 
     /**

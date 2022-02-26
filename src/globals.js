@@ -20,7 +20,7 @@ export function allocate(space, length, arrayClass) {
 
     let offset = curmod._malloc(arrayClass.valueSize * length);
     curlive[current.ids] = offset;
-    let x = new arrayClass(space, current.ids, length, offset, true);
+    let x = new arrayClass(space, current.ids, length, offset, null);
 
     finalizer.register(x, { space: space, id: current.ids });
     current.ids++;
