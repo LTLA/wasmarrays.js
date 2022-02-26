@@ -136,11 +136,17 @@ export class WasmArray {
     /**
      * Create a `WasmArray` clone of this object.
      *
+     * @param {number} space - Identifier for the Wasm memory space.
+     * If not specified, we use the memory space of this object.
+     *
      * @return A new `WasmArray` of the same type and filled with the same contents.
-     * This refers to a separate allocation on the same memory space as this object.
+     * This refers to a separate allocation on the requested space.
      */
-    clone() {
-        let output = allocate(this.#space, this.#length, this.constructor);
+    clone(space) {
+        if (typeof space === "undefined") {
+            space = this.#space;
+        }
+        let output = allocate(space, this.#length, this.constructor);
         output.set(this.array());
         return output;
     }
