@@ -1,0 +1,19 @@
+on: [push]
+
+name: Run unit tests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+
+    - name: Set up Node
+      uses: actions/setup-node@v2
+
+    - name: Update NPM packages
+      run: npm i --include=dev
+
+    - name: Run tests
+      run: node --experimental-vm-modules node_modules/jest/bin/jest.js
