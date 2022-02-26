@@ -44,11 +44,79 @@
 
     <section>
         <article><h1>WasmArray.js</h1>
-<p>The <code>WasmArray</code> class wraps an array allocated on the WebAssembly heap.
-(Specifically, for the Wasm modules created by Emscripten.)
-It provides some methods to mimic the behavior of the corresponding <code>TypedArray</code>, e.g., <code>set</code>, <code>slice</code>.
-It also implements transparent lifetime management where the Wasm allocation is freed when the class is garbage-collected in Javascript.
-Users may also directly free the memory for greater control.</p></article>
+<h2>Overview</h2>
+<p>WebAssembly uses a resizeable <code>(Shared)ArrayBuffer</code> as its heap memory store.
+Developers can allocate arrays on this store to pass data efficiently between Javascript and WebAssembly code.
+The <code>WasmArray</code> class wraps these arrays for convenient use in large applications.
+We provide some helper methods to produce a corresponding <code>TypedArray</code> view and manipulate its contents.
+We implement finalizers where the Wasm allocation is freed when instances of the class are garbage-collected by the Javascript engine.
+Users may also directly free the memory for greater control.</p>
+<h2>Quick start</h2>
+<p>Install the package as usual from NPM:</p>
+<pre class="prettyprint source lang-sh"><code>npm i WasmArray
+</code></pre>
+<p>This is written as an ES6 module, so we can import its methods and classes:</p>
+<pre class="prettyprint source lang-js"><code>import * as wa from &quot;WasmArray&quot;;
+</code></pre>
+<p>We assume that the application already has a <code>module</code> object, typically produced by Emscripten.
+We register our Wasm module with <code>WasmArray</code>, keeping track of the memory space identifier:</p>
+<pre class="prettyprint source lang-js"><code>let space = wa.register(module);
+</code></pre>
+<p>Then we can create <code>WasmArray</code>s, e.g., a 1000-element array of unsigned 8-bit integers:</p>
+<pre class="prettyprint source lang-js"><code>let my_array = wa.createUint8WasmArray(space, 1000);
+</code></pre>
+<p>Check out the <a href="https://ltla.github.io/WasmArray.js">API documentation</a> for more details.</p>
+<h2>Mimicking <code>TypedArray</code>s</h2>
+<p>We can create a <code>TypedArray</code> view of a <code>WasmArray</code> by calling:</p>
+<pre class="prettyprint source lang-js"><code>my_array.array(); // Uint8Array view of the allocation
+</code></pre>
+<p>This view can be used to write or read values from the heap allocation.
+However, some caution is required as it seems that views on the Wasm heap can be invalidated when the heap is resized.
+We generally recommend only creating a view immediately before its use, i.e., there should be no Wasm allocations after the creation of a view but before its use.</p>
+<p>For greater robustness to resizing, we provide some methods for the <code>WasmArray</code> to mimic its <code>TypedArray</code> view.
+This avoids exposing the creation of a view in the caller's code, avoiding any potential problems with intervening allocations.
+Note that <code>slice()</code> methods return a <code>TypedArray</code> with its own <code>ArrayBuffer</code>, so that value is not subject to issues with Wasm heap resizing.</p>
+<pre class="prettyprint source lang-js"><code>my_array.length; // 1000
+
+my_array.slice(); // new Uint8Array copy of the entire array
+my_array.slice(500); // new Uint8Array copy from [500, 1000)
+my_array.slice(500, 600); // new Uint8Array copy from [500, 600)
+
+my_array.fill(0); // fills the allocation with zero's.
+my_array.fill(1, 200); // fills [200, 1000) with 1's.
+my_array.fill(2, 300, 500); // fills [300m 500) with 2's.
+
+values = [1,2,3,4,5];
+my_array.set(values); // fills first five values with 1->5.
+my_array.set(values, 101); // fills 101->105 with 1->5.
+</code></pre>
+<h2>Interacting with the heap</h2>
+<p>For an instance of a <code>WasmArray</code>, the offset of the allocation on its Wasm heap is available in the <code>offset</code> property.
+This can be passed to Wasm functions for efficient access to the array data.</p>
+<p>Multiple Wasm heaps may be registered via <code>register</code> if there are multiple Wasm-enabled applications that need to use <code>WasmArray</code>s.
+Currently, each Wasm module can only use the memory from its own heap.
+Applications can check whether a <code>WasmArray</code> instance refers to an allocation on the appropriate heap by comparing the <code>space</code> property with the value returned by <code>register()</code>.
+If it is, the instance's <code>offset</code> can be used directly.
+Otherwise, an application can make a copy on their own heap:</p>
+<pre class="prettyprint source lang-js"><code>let copy = my_array.clone(new_space);
+</code></pre>
+<p>Advanced users may also create <code>WasmArray</code>s that are views on other <code>WasmArray</code>s.
+This avoids the need to carry around start/end parameters when only a subset of the data is of interest.</p>
+<pre class="prettyprint source lang-js"><code>let view = my_array.view(20, 50);
+</code></pre>
+<h2>Lifetime management</h2>
+<p>For each <code>WasmArray</code> instance created with the <code>create*WasmArray()</code> functions,
+we register a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/FinalizationRegistry">finalizer callback</a> when the instance is garbage-collected.
+This frees its corresponding allocation on the Wasm heap to reduce memory usage in long-running applications.
+As a result, most users can operate on <code>WasmArray</code> instances without worrying about manual memory management.</p>
+<p>That said, advanced users may prefer to manually free the memory when it is no longer needed.
+Finalizer callbacks may not be run in a predictable manner, so if memory is scarce, direct control is required to guarantee that the memory is released.
+To achieve this, we can do:</p>
+<pre class="prettyprint source lang-js"><code>my_array.free();
+</code></pre>
+<h2>Contact</h2>
+<p>This package is maintained by Aaron Lun (<a href="https://github.com/LTLA">@LTLA</a>).
+Post feature requests and bug reports on the <a href="https://github.com/LTLA/WasmArray.js/issues">GitHub Issues page</a>.</p></article>
     </section>
 
 
@@ -65,7 +133,7 @@ Users may also directly free the memory for greater control.</p></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Feb 26 2022 09:13:14 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Feb 26 2022 20:56:34 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
