@@ -1,0 +1,24 @@
+{
+    "name": "WasmArray",
+    "version": "0.0.13",
+    "description": "Wrappers around arrays allocated on the Wasm heap",
+    "license": "MIT",
+    "main": "src/index.js",
+    "type": "module",
+    "scripts": {
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    },
+    "devDependencies": {
+        "jest": "^27.4.7",
+        "jsdoc": "^3.6.10"
+    },
+    "author": {
+        "name": "Aaron Lun",
+        "email": "infinite.monkeys.with.keyboards@gmail.com"
+    },
+    "bugs": "https://github.com/LTLA/WasmArray.js",
+    "keywords": [
+        "webassembly"
+    ],
+    "repository": "github:LTLA/WasmArray.js"
+}
