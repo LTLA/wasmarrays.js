@@ -186,6 +186,9 @@ This handles the memory management so that users don't have to manually free all
             
                 
 <span class="param-type"><a href="WasmArray.html">WasmArray</a></span>
+|
+
+<span class="param-type">object</span>
 
 
             
@@ -195,9 +198,7 @@ This handles the memory management so that users don't have to manually free all
 
             
 
-            <td class="description last"><p>Owner of the memory.
-If supplied, the to-be-constructed object is assumed to be a view on the array owned by <code>owner</code>.
-If <code>null</code>, the new object will be the owner of its own allocation.</p>
+            <td class="description last"><p>Owner of the memory, see the <code>owner</code> property for more details about acceptable values.</p>
 <p>Users should not be calling this constructor directly;
 use the <code>createWasmArray()</code> function instead.</p></td>
         </tr>
@@ -337,7 +338,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line46">line 46</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -395,7 +396,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line60">line 60</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -453,7 +454,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line53">line 53</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -511,7 +512,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line69">line 69</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -569,7 +570,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line38">line 38</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -699,7 +700,7 @@ If not specified, we use the memory space of this object.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line145">line 145</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -926,7 +927,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line85">line 85</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line90">line 90</a>
     </li></ul></dd>
     
 
@@ -1024,7 +1025,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line196">line 196</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line201">line 201</a>
     </li></ul></dd>
     
 
@@ -1222,7 +1223,7 @@ Defaults to the start of the array.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line105">line 105</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line110">line 110</a>
     </li></ul></dd>
     
 
@@ -1417,7 +1418,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line126">line 126</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -1613,7 +1614,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line170">line 170</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -1679,7 +1680,7 @@ Of course, all views will be invalidated if the parent's <code>free()</code> met
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Feb 26 2022 23:54:25 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 00:30:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
