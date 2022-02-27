@@ -49,7 +49,7 @@ const finalizer = new FinalizationRegistry(held => {
 var spaces = 0;
 
 /**
- * Register a Wasm module for creation of `WasmArray`s.
+ * Register a Wasm module for creation of {@linkplain WasmArray}s.
  *
  * @param {object} module - A Wasm module object, usually produced by Emscripten.
  *

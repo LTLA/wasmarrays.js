@@ -13,14 +13,13 @@ export class WasmArray {
     #owner;
 
     /**
-     * @param {number} space - Identifier for the Wasm memory space.
+     * @param {number} space - Identifier for the Wasm memory space, as returned by {@linkcode register}.
      * @param {number} id - Identifier for this array in the specified space.
      * @param {number} length - Length of the array.
      * @param {number} offset - Offset on the Wasm heap.
      * @param {(WasmArray|object)} owner - Owner of the memory, see the `owner` property for more details about acceptable values.
      *
-     * Users should not be calling this constructor directly;
-     * use the `createWasmArray()` function instead.
+     * @desc Users should not call this constructor directly; use the {@linkcode createWasmArray} function instead.
      */
     constructor(space, id, length, offset, owner) {
         this.#space = space;
@@ -31,45 +30,51 @@ export class WasmArray {
     }
 
     /**
-     * @return Identifier for the Wasm memory space.
+     * @member {number}
+     * @desc Identifier for the Wasm memory space.
      */
     get space() {
         return this.#space;
     }
 
     /**
-     * @return Identifier for this array in the specified space.
-     * This may not have any meaningful value if this `WasmArray` instance is a view, see the `owner` property.
+     * @member {number}
+     * @desc Identifier for this array in the specified space.
+     * This may not have any meaningful value if this WasmArray instance is a view, see the `owner` property.
      */
     get id() {
         return this.#id;
     }
 
     /**
-     * @return Offset on the Wasm heap.
+     * @member {number}
+     * @desc Offset on the Wasm heap.
      */
     get offset() {
         return this.#offset;
     }
 
     /**
-     * @return Length of the array.
+     * @member {number}
+     * @desc Length of the array.
      */
     get length() {
         return this.#length;
     }
 
     /**
-     * @return Information about the owner of the allocation on the Wasm heap.
+     * @member {(object|WasmArray)}
      *
-     * The most common return value will be `null`, in which case the current `WasmArray` instance owns its own allocation.
-     * This is the only setting where `free()` has any effect.
+     * @desc
+     * This property contains information about the owner of the allocation on the Wasm heap.
+     * The most common value of this property will be `null`, indicating that the current WasmArray instance is the owner of the allocation on the Wasm heap.
+     * This is the only setting where {@linkcode WasmArray#free free} has any effect.
      *
      * Any non-`null` value indicates that the current instance is just a view into an allocation owned by another entity.
-     * If `owner()` returns a reference to another `WasmArray`, then the returned object is the actual owner of the allocation.
+     * If the value is a reference to another WasmArray, then the returned object is the actual owner of the allocation.
      *
-     * In some cases, `owner()` may return an empty (non-`null`) object.
-     * This indicates that the allocation is owned by some unknown entity, e.g., a view directly returned by Emscripten's bindings without using `WasmArray`.
+     * In some cases, `owner` may be an empty (non-`null`) object.
+     * This indicates that the allocation is owned by some unknown entity, e.g., a view directly returned by Emscripten's bindings without involving a WasmArray instance.
      */
     get owner() {
         return this.#owner;
@@ -117,7 +122,7 @@ export class WasmArray {
     }
 
     /**
-     * Create a `TypedArray` slice of the data in the allocated array.
+     * Create a TypedArray slice of the data in the allocated array.
      *
      * @param {number} [start] - Position on this array to start slicing.
      * Defaults to the start of the array.
@@ -125,8 +130,8 @@ export class WasmArray {
      * Defaults to the end of the array.
      * Only used if `start` is specified.
      *
-     * @return A `TypedArray` containing the specified subarray.
-     * This is not a view on the Wasm heap and thus can continue to be used after Wasm allocations.
+     * @return A TypedArray containing the specified subarray.
+     * This is not a view on the Wasm heap and thus can be safely used after any further Wasm allocations.
      */
     slice(start, end) {
         if (typeof start === "undefined") {
@@ -139,12 +144,12 @@ export class WasmArray {
     }
 
     /**
-     * Create a `WasmArray` clone of this object.
+     * Create a WasmArray clone of this object.
      *
      * @param {number} space - Identifier for the Wasm memory space.
      * If not specified, we use the memory space of this object.
      *
-     * @return A new `WasmArray` of the same type and filled with the same contents.
+     * @return A new WasmArray of the same type and filled with the same contents.
      * This refers to a separate allocation on the requested space.
      */
     clone(space) {
@@ -157,7 +162,7 @@ export class WasmArray {
     }
 
     /**
-     * Create a `WasmArray` "view" of the data in this object.
+     * Create a WasmArray "view" of the data in this object.
      *
      * @param {number} [start] - Position on this array to start the view.
      * Defaults to the start of the array.
@@ -165,12 +170,12 @@ export class WasmArray {
      * Defaults to the end of the array.
      * Only used if `start` is specified.
      *
-     * @return A `WasmArray` containing a view on the specified subarray.
+     * @return A WasmArray containing a view on the specified subarray.
      *
-     * The returned object does not own the memory on the Wasm heap, so `free()` will not have any effect.
-     * It does, however, hold a reference to its parent object, i.e., the `WasmArray` instance on which `view()` was called.
-     * This reference avoids premature garbage collection of the parent and inadvertent invalidation of the views.
-     * Of course, all views will be invalidated if the parent's `free()` method is invoked manually.
+     * The returned object does not own the memory on the Wasm heap, so {@linkcode WasmArray#free free} will not have any effect.
+     * It does, however, hold a reference to its parent object, i.e., the current WasmArray instance on which `view` was called.
+     * This reference ensures that the parent is not prematurely garbage collected (thus invalidating the view when the Wasm allocation is freed).
+     * Of course, all views will be invalidated if the parent's {@linkcode WasmArray#free free} method is invoked manually.
      */
     view(start, end) {
         if (typeof start === "undefined") {
