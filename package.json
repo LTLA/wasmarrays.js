@@ -1,6 +1,6 @@
 {
     "name": "WasmArray",
-    "version": "0.0.13",
+    "version": "0.0.1",
     "description": "Wrappers around arrays allocated on the Wasm heap",
     "license": "MIT",
     "main": "src/index.js",
