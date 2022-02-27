@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: convert.js</title>
+    <title>JSDoc: Source: view.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: convert.js</h1>
+    <h1 class="page-title">Source: view.js</h1>
 
     
 
@@ -26,159 +26,129 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { allocate } from "./globals.js";
-import { 
+            <pre class="prettyprint source linenums"><code>import { 
     Int8WasmArray, Uint8WasmArray,
     Int16WasmArray, Uint16WasmArray,
     Int32WasmArray, Uint32WasmArray,
-    Float32WasmArray, Float64WasmArray,
-    stringToClass
+    Float32WasmArray, Float64WasmArray
 } from "./derived.js";
 
 /**
- * Convert a `(Typed)Array` into a new `WasmArray` of the specified subclass.
+ * Create a `WasmArray` view of the specified subclass.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- * @param {class} [arrayClass] - Subclass of the `WasmArray` to create.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * @param {class} arrayClass - Subclass of the `WasmArray` to create a view.
  * 
- * @return Instance of a `WasmArray` subclass containing the same contents as `x`.
- *
- * If `arrayClass` is not provided, it defaults to an appropriate type based on `x`.
- * For `TypedArray` inputs, this is the `WasmArray` corresponding to the `TypedArray` subclass,
- * while for `Array` inputs, this is the `Float64WasmArray` subclass.
+ * @return Instance of a `WasmArray` subclass containing a view on the heap.
  */
-export function convertToWasmArray(space, x, arrayClass) {
-    if (typeof arrayClass === "undefined") {
-        if (ArrayBuffer.isView(x)) {
-            let input = x.constructor.name;
-            try {
-                arrayClass = stringToClass(input.replace("Array", "WasmArray"));
-            } catch (e) {
-                throw "unsupported TypedArray type '" + input + "'";
-            }
-        } else {
-            arrayClass = Float64WasmArray;
-        }
-    }
-
-    let y;
-    try {
-        y = allocate(space, x.length, arrayClass);
-        y.set(x);
-//        if (ArrayBuffer.isView(x) &amp;&amp; (x.constructor.name.startsWith("BigInt") || x.constructor.name.startsWith("BigUint"))) {
-//            // Needs an explicit cast from BigInts.
-//            var v = y.array();
-//            x.forEach((n, i) => { v[i] = Number(n); });
-//        } else {
-//            y.set(x);
-//        }
-    } catch(e) {
-        // Setting might throw weird errors, so we need to 
-        // catch and release the memory if the conversion fails.
-        if (typeof y !== "undefined") {
-            y.free();
-        }
-        throw e;
-    }
-
-    return y;
+export function createWasmArrayView(space, length, offset, arrayClass) {
+    return new arrayClass(space, -1, length, offset, {});
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Uint8WasmArray`. 
+ * Create a `Uint8WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Uint8WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a `Uint8WasmArray` view.
  */
-export function convertToUint8WasmArray(space, x) {
-    return convertToWasmArray(space, x, Uint8WasmArray);    
+export function createUint8WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Uint8WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Int8WasmArray`. 
+ * Create an `Int8WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Int8WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of an `Int8WasmArray` view.
  */
-export function convertToInt8WasmArray(space, x) {
-    return convertToWasmArray(space, x, Int8WasmArray);    
+export function createInt8WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Int8WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Uint16WasmArray`. 
+ * Create a `Uint16WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Uint16WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a `Uint16WasmArray` view.
  */
-export function convertToUint16WasmArray(space, x) {
-    return convertToWasmArray(space, x, Uint16WasmArray);    
+export function createUint16WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Uint16WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Int16WasmArray`. 
+ * Create an `Int16WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Int16WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of an `Int16WasmArray` view.
  */
-export function convertToInt16WasmArray(space, x) {
-    return convertToWasmArray(space, x, Int16WasmArray);    
+export function createInt16WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Int16WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Uint32WasmArray`. 
+ * Create a `Uint32WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Uint32WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a `Uint32WasmArray` view.
  */
-export function convertToUint32WasmArray(space, x) {
-    return convertToWasmArray(space, x, Uint32WasmArray);    
+export function createUint32WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Uint32WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Int32WasmArray`. 
+ * Create an `Int32WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Int32WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of an `Int32WasmArray` view.
  */
-export function convertToInt32WasmArray(space, x) {
-    return convertToWasmArray(space, x, Int32WasmArray);    
+export function createInt32WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Int32WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Float32WasmArray`. 
+ * Create a `Float32WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Float32WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a `Float32WasmArray` view.
  */
-export function convertToFloat32WasmArray(space, x) {
-    return convertToWasmArray(space, x, Float32WasmArray);    
+export function createFloat32WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Float32WasmArray); 
 }
 
 /**
- * Convert a `(Typed)Array` into a new `Float64WasmArray`. 
+ * Create a `Float64WasmArray` view.
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by `register()`.
- * @param {(Array|TypedArray)} x - Array to be converted.
- *
- * @return Instance of a `Float64WasmArray` subclass containing the same contents as `x`.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a `Float64WasmArray` view.
  */
-export function convertToFloat64WasmArray(space, x) {
-    return convertToWasmArray(space, x, Float64WasmArray);    
+export function createFloat64WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, Float64WasmArray); 
 }
 </code></pre>
         </article>

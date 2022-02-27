@@ -231,7 +231,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line149">line 149</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -404,7 +404,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line161">line 161</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line152">line 152</a>
     </li></ul></dd>
     
 
@@ -577,7 +577,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line89">line 89</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line80">line 80</a>
     </li></ul></dd>
     
 
@@ -750,7 +750,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line113">line 113</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -923,7 +923,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line137">line 137</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -1096,7 +1096,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line77">line 77</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -1269,7 +1269,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line101">line 101</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -1442,7 +1442,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line125">line 125</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -1666,7 +1666,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line22">line 22</a>
+        <a href="convert.js.html">convert.js</a>, <a href="convert.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -1885,6 +1885,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
     
 
     
+    <h4 class="name" id="createFloat32WasmArrayView"><span class="type-signature"></span>createFloat32WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>Float32WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line109">line 109</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>Float32WasmArray</code> view.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="createFloat64WasmArray"><span class="type-signature"></span>createFloat64WasmArray<span class="signature">(space, length)</span><span class="type-signature"></span></h4>
     
 
@@ -2039,6 +2232,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
         
 <div class="param-desc">
     <p>Instance of a <code>Float64WasmArray</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createFloat64WasmArrayView"><span class="type-signature"></span>createFloat64WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>Float64WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>Float64WasmArray</code> view.</p>
 </div>
 
 
@@ -2225,6 +2611,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
     
 
     
+    <h4 class="name" id="createInt8WasmArrayView"><span class="type-signature"></span>createInt8WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create an <code>Int8WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of an <code>Int8WasmArray</code> view.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="createInt16WasmArray"><span class="type-signature"></span>createInt16WasmArray<span class="signature">(space, length)</span><span class="type-signature"></span></h4>
     
 
@@ -2379,6 +2958,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
         
 <div class="param-desc">
     <p>Instance of a <code>Int16WasmArray</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createInt16WasmArrayView"><span class="type-signature"></span>createInt16WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create an <code>Int16WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of an <code>Int16WasmArray</code> view.</p>
 </div>
 
 
@@ -2565,6 +3337,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
     
 
     
+    <h4 class="name" id="createInt32WasmArrayView"><span class="type-signature"></span>createInt32WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create an <code>Int32WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of an <code>Int32WasmArray</code> view.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="createUint8WasmArray"><span class="type-signature"></span>createUint8WasmArray<span class="signature">(space, length)</span><span class="type-signature"></span></h4>
     
 
@@ -2719,6 +3684,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
         
 <div class="param-desc">
     <p>Instance of a <code>Uint8WasmArray</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createUint8WasmArrayView"><span class="type-signature"></span>createUint8WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>Uint8WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>Uint8WasmArray</code> view.</p>
 </div>
 
 
@@ -2905,6 +4063,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
     
 
     
+    <h4 class="name" id="createUint16WasmArrayView"><span class="type-signature"></span>createUint16WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>Uint16WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>Uint16WasmArray</code> view.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="createUint32WasmArray"><span class="type-signature"></span>createUint32WasmArray<span class="signature">(space, length)</span><span class="type-signature"></span></h4>
     
 
@@ -3059,6 +4410,199 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
         
 <div class="param-desc">
     <p>Instance of a <code>Uint32WasmArray</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createUint32WasmArrayView"><span class="type-signature"></span>createUint32WasmArrayView<span class="signature">(space, length, offset)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>Uint32WasmArray</code> view.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>Uint32WasmArray</code> view.</p>
 </div>
 
 
@@ -3268,6 +4812,222 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
     
 
     
+    <h4 class="name" id="createWasmArrayView"><span class="type-signature"></span>createWasmArrayView<span class="signature">(space, length, offset, arrayClass)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a <code>WasmArray</code> view of the specified subclass.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>space</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Identifier for the Wasm memory space, produced by <code>register()</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Length of the view, in terms of the number of data elements.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Offset on the Wasm heap to start the view.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arrayClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">class</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Subclass of the <code>WasmArray</code> to create a view.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js.html">view.js</a>, <a href="view.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Instance of a <code>WasmArray</code> subclass containing a view on the heap.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="register"><span class="type-signature"></span>register<span class="signature">(module)</span><span class="type-signature"></span></h4>
     
 
@@ -3410,6 +5170,153 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="stringToClass"><span class="type-signature"></span>stringToClass<span class="signature">(name)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve class from its name.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of the class.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="derived.js.html">derived.js</a>, <a href="derived.js.html#line225">line 225</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Class object corresponding to <code>name</code>.</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
     
 
     
@@ -3425,13 +5332,13 @@ while for <code>Array</code> inputs, this is the <code>Float64WasmArray</code> s
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Float32WasmArray.html">Float32WasmArray</a></li><li><a href="Float64WasmArray.html">Float64WasmArray</a></li><li><a href="Int8WasmArray.html">Int8WasmArray</a></li><li><a href="Int16WasmArray.html">Int16WasmArray</a></li><li><a href="Int32WasmArray.html">Int32WasmArray</a></li><li><a href="Uint8WasmArray.html">Uint8WasmArray</a></li><li><a href="Uint16WasmArray.html">Uint16WasmArray</a></li><li><a href="Uint32WasmArray.html">Uint32WasmArray</a></li><li><a href="WasmArray.html">WasmArray</a></li></ul><h3>Global</h3><ul><li><a href="global.html#convertToFloat32WasmArray">convertToFloat32WasmArray</a></li><li><a href="global.html#convertToFloat64WasmArray">convertToFloat64WasmArray</a></li><li><a href="global.html#convertToInt8WasmArray">convertToInt8WasmArray</a></li><li><a href="global.html#convertToInt16WasmArray">convertToInt16WasmArray</a></li><li><a href="global.html#convertToInt32WasmArray">convertToInt32WasmArray</a></li><li><a href="global.html#convertToUint8WasmArray">convertToUint8WasmArray</a></li><li><a href="global.html#convertToUint16WasmArray">convertToUint16WasmArray</a></li><li><a href="global.html#convertToUint32WasmArray">convertToUint32WasmArray</a></li><li><a href="global.html#convertToWasmArray">convertToWasmArray</a></li><li><a href="global.html#createFloat32WasmArray">createFloat32WasmArray</a></li><li><a href="global.html#createFloat64WasmArray">createFloat64WasmArray</a></li><li><a href="global.html#createInt8WasmArray">createInt8WasmArray</a></li><li><a href="global.html#createInt16WasmArray">createInt16WasmArray</a></li><li><a href="global.html#createInt32WasmArray">createInt32WasmArray</a></li><li><a href="global.html#createUint8WasmArray">createUint8WasmArray</a></li><li><a href="global.html#createUint16WasmArray">createUint16WasmArray</a></li><li><a href="global.html#createUint32WasmArray">createUint32WasmArray</a></li><li><a href="global.html#createWasmArray">createWasmArray</a></li><li><a href="global.html#register">register</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Float32WasmArray.html">Float32WasmArray</a></li><li><a href="Float64WasmArray.html">Float64WasmArray</a></li><li><a href="Int8WasmArray.html">Int8WasmArray</a></li><li><a href="Int16WasmArray.html">Int16WasmArray</a></li><li><a href="Int32WasmArray.html">Int32WasmArray</a></li><li><a href="Uint8WasmArray.html">Uint8WasmArray</a></li><li><a href="Uint16WasmArray.html">Uint16WasmArray</a></li><li><a href="Uint32WasmArray.html">Uint32WasmArray</a></li><li><a href="WasmArray.html">WasmArray</a></li></ul><h3>Global</h3><ul><li><a href="global.html#convertToFloat32WasmArray">convertToFloat32WasmArray</a></li><li><a href="global.html#convertToFloat64WasmArray">convertToFloat64WasmArray</a></li><li><a href="global.html#convertToInt8WasmArray">convertToInt8WasmArray</a></li><li><a href="global.html#convertToInt16WasmArray">convertToInt16WasmArray</a></li><li><a href="global.html#convertToInt32WasmArray">convertToInt32WasmArray</a></li><li><a href="global.html#convertToUint8WasmArray">convertToUint8WasmArray</a></li><li><a href="global.html#convertToUint16WasmArray">convertToUint16WasmArray</a></li><li><a href="global.html#convertToUint32WasmArray">convertToUint32WasmArray</a></li><li><a href="global.html#convertToWasmArray">convertToWasmArray</a></li><li><a href="global.html#createFloat32WasmArray">createFloat32WasmArray</a></li><li><a href="global.html#createFloat32WasmArrayView">createFloat32WasmArrayView</a></li><li><a href="global.html#createFloat64WasmArray">createFloat64WasmArray</a></li><li><a href="global.html#createFloat64WasmArrayView">createFloat64WasmArrayView</a></li><li><a href="global.html#createInt8WasmArray">createInt8WasmArray</a></li><li><a href="global.html#createInt8WasmArrayView">createInt8WasmArrayView</a></li><li><a href="global.html#createInt16WasmArray">createInt16WasmArray</a></li><li><a href="global.html#createInt16WasmArrayView">createInt16WasmArrayView</a></li><li><a href="global.html#createInt32WasmArray">createInt32WasmArray</a></li><li><a href="global.html#createInt32WasmArrayView">createInt32WasmArrayView</a></li><li><a href="global.html#createUint8WasmArray">createUint8WasmArray</a></li><li><a href="global.html#createUint8WasmArrayView">createUint8WasmArrayView</a></li><li><a href="global.html#createUint16WasmArray">createUint16WasmArray</a></li><li><a href="global.html#createUint16WasmArrayView">createUint16WasmArrayView</a></li><li><a href="global.html#createUint32WasmArray">createUint32WasmArray</a></li><li><a href="global.html#createUint32WasmArrayView">createUint32WasmArrayView</a></li><li><a href="global.html#createWasmArray">createWasmArray</a></li><li><a href="global.html#createWasmArrayView">createWasmArrayView</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#stringToClass">stringToClass</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 00:30:52 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 01:20:25 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
