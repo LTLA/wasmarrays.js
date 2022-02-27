@@ -1,12 +1,13 @@
-# Helper classes for Wasm-basked arrays
+# Helper classes for WebAssembly arrays
 
 ## Overview
 
 WebAssembly uses a resizeable `(Shared)ArrayBuffer` as its heap memory store.
-Developers can allocate arrays on this store to pass data efficiently between Javascript and WebAssembly code.
-The `WasmArray` class wraps these arrays for convenient use in large applications.
-We provide some helper methods to produce a corresponding `TypedArray` view and manipulate its contents.
-We implement finalizers where the Wasm allocation is freed when instances of the class are garbage-collected by the Javascript engine.
+Developers can allocate arrays on this heap to pass data efficiently between Javascript and WebAssembly code.
+The `WasmArray` class wraps these arrays for more convenient use in complex web applications.
+We provide functions to quickly create new allocations and convert existing `(Typed)Array`s into their corresponding `WasmArray`s.
+We provide some helper methods to produce a `TypedArray` view from a `WasmArray` and manipulate its contents.
+We implement finalizers that automatically free the heap allocation when instances of the class are garbage-collected by the Javascript engine.
 Users may also directly free the memory for greater control.
 
 ## Quick start
@@ -20,17 +21,17 @@ npm i wasmarrays.js
 This is written as an ES6 module, so we can import its methods and classes:
 
 ```js
-import * as wa from "@ltla/wasmarrays.js";
+import * as wa from "wasmarrays.js";
 ```
 
-We assume that the application already has a `module` object, typically produced by Emscripten.
-We register our Wasm module with `WasmArray`, keeping track of the memory space identifier:
+We assume that the application already has a Wasm `module` object, typically produced by Emscripten.
+We register our Wasm module with the **WasmArray** package:
 
 ```js
 let space = wa.register(module);
 ```
 
-Then we can create `WasmArray`s, e.g., a 1000-element array of unsigned 8-bit integers:
+Then we can create `WasmArray`s on that Wasm heap, e.g., a 1000-element array of unsigned 8-bit integers:
 
 ```js
 let my_array = wa.createUint8WasmArray(space, 1000);
@@ -46,13 +47,13 @@ We can create a `TypedArray` view of a `WasmArray` by calling:
 my_array.array(); // Uint8Array view of the allocation
 ```
 
-This view can be used to write or read values from the heap allocation.
-However, some caution is required as it seems that views on the Wasm heap can be invalidated when the heap is resized.
+This view can be used to write or read values from the Wasm heap.
+However, some caution is required as it seems that views can be invalidated when the heap is resized.
 We generally recommend only creating a view immediately before its use, i.e., there should be no Wasm allocations after the creation of a view but before its use.
 
 For greater robustness to resizing, we provide some methods for the `WasmArray` to mimic its `TypedArray` view.
-This avoids exposing the creation of a view in the caller's code, avoiding any potential problems with intervening allocations. 
-Note that `slice()` methods return a `TypedArray` with its own `ArrayBuffer`, so that value is not subject to issues with Wasm heap resizing.
+This avoids exposing the creation of a view in the caller's code, avoiding any problems with intervening allocations. 
+Note that `slice()` methods return a `TypedArray` with its own `ArrayBuffer` that is not susceptible to issues with Wasm heap resizing.
 
 ```js
 my_array.length; // 1000
@@ -97,7 +98,7 @@ let view = my_array.view(20, 50);
 For each `WasmArray` instance created with the `create*WasmArray()` functions, 
 we register a [finalizer callback](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/FinalizationRegistry) when the instance is garbage-collected.
 This frees its corresponding allocation on the Wasm heap to reduce memory usage in long-running applications.
-As a result, most users can operate on `WasmArray` instances without worrying about manual memory management.
+Thus, most users can operate on `WasmArray` instances without worrying about manual memory management.
 
 That said, advanced users may prefer to manually free the memory when it is no longer needed.
 Finalizer callbacks may not be run in a predictable manner, so if memory is scarce, direct control is required to guarantee that the memory is released.

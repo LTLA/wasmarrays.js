@@ -16,9 +16,9 @@
         "name": "Aaron Lun",
         "email": "infinite.monkeys.with.keyboards@gmail.com"
     },
-    "bugs": "https://github.com/LTLA/wasmarrays",
+    "bugs": "https://github.com/LTLA/wasmarrays.js",
     "keywords": [
         "webassembly"
     ],
-    "repository": "github:LTLA/wasmarrays"
+    "repository": "github:LTLA/wasmarrays.js"
 }
