@@ -1,5 +1,5 @@
 {
-    "name": "WasmArray",
+    "name": "wasmarrays.js",
     "version": "0.0.1",
     "description": "Wrappers around arrays allocated on the Wasm heap",
     "license": "MIT",
@@ -16,9 +16,9 @@
         "name": "Aaron Lun",
         "email": "infinite.monkeys.with.keyboards@gmail.com"
     },
-    "bugs": "https://github.com/LTLA/WasmArray.js",
+    "bugs": "https://github.com/LTLA/wasmarrays",
     "keywords": [
         "webassembly"
     ],
-    "repository": "github:LTLA/WasmArray.js"
+    "repository": "github:LTLA/wasmarrays"
 }

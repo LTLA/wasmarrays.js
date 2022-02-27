@@ -1,4 +1,4 @@
-# WasmArray.js
+# Helper classes for Wasm-basked arrays
 
 ## Overview
 
@@ -14,13 +14,13 @@ Users may also directly free the memory for greater control.
 Install the package as usual from NPM:
 
 ```sh
-npm i WasmArray
+npm i wasmarrays.js
 ```
 
 This is written as an ES6 module, so we can import its methods and classes:
 
 ```js
-import * as wa from "WasmArray";
+import * as wa from "@ltla/wasmarrays.js";
 ```
 
 We assume that the application already has a `module` object, typically produced by Emscripten.
@@ -36,7 +36,7 @@ Then we can create `WasmArray`s, e.g., a 1000-element array of unsigned 8-bit in
 let my_array = wa.createUint8WasmArray(space, 1000);
 ```
 
-Check out the [API documentation](https://ltla.github.io/WasmArray.js) for more details.
+Check out the [API documentation](https://ltla.github.io/wasmarrays.js) for more details.
 
 ## Mimicking `TypedArray`s
 
@@ -110,4 +110,4 @@ my_array.free();
 ## Contact
 
 This package is maintained by Aaron Lun ([@LTLA](https://github.com/LTLA)).
-Post feature requests and bug reports on the [GitHub Issues page](https://github.com/LTLA/WasmArray.js/issues).
+Post feature requests and bug reports on the [GitHub Issues page](https://github.com/LTLA/wasmarrays.js/issues).
