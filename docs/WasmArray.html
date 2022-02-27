@@ -54,6 +54,10 @@ This handles the memory management so that users don't have to manually free all
 
 
 
+<div class="description">
+    <p>Users should not call this constructor directly; use the <a href="global.html#createWasmArray"><code>createWasmArray</code></a> function instead.</p>
+</div>
+
 
 
 
@@ -103,7 +107,7 @@ This handles the memory management so that users don't have to manually free all
 
             
 
-            <td class="description last"><p>Identifier for the Wasm memory space.</p></td>
+            <td class="description last"><p>Identifier for the Wasm memory space, as returned by <a href="global.html#register"><code>register</code></a>.</p></td>
         </tr>
 
     
@@ -198,9 +202,7 @@ This handles the memory management so that users don't have to manually free all
 
             
 
-            <td class="description last"><p>Owner of the memory, see the <code>owner</code> property for more details about acceptable values.</p>
-<p>Users should not be calling this constructor directly;
-use the <code>createWasmArray()</code> function instead.</p></td>
+            <td class="description last"><p>Owner of the memory, see the <code>owner</code> property for more details about acceptable values.</p></td>
         </tr>
 
     
@@ -298,12 +300,27 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
         
             
-<h4 class="name" id="id"><span class="type-signature"></span>id<span class="type-signature"></span></h4>
+<h4 class="name" id="id"><span class="type-signature"></span>id<span class="type-signature"> :number</span></h4>
 
 
 
 
+<div class="description">
+    <p>Identifier for this array in the specified space.
+This may not have any meaningful value if this WasmArray instance is a view, see the <code>owner</code> property.</p>
+</div>
 
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -338,7 +355,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line44">line 44</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -356,12 +373,26 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
         
             
-<h4 class="name" id="length"><span class="type-signature"></span>length<span class="type-signature"></span></h4>
+<h4 class="name" id="length"><span class="type-signature"></span>length<span class="type-signature"> :number</span></h4>
 
 
 
 
+<div class="description">
+    <p>Length of the array.</p>
+</div>
 
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -396,7 +427,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line58">line 58</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -414,12 +445,26 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
         
             
-<h4 class="name" id="offset"><span class="type-signature"></span>offset<span class="type-signature"></span></h4>
+<h4 class="name" id="offset"><span class="type-signature"></span>offset<span class="type-signature"> :number</span></h4>
 
 
 
 
+<div class="description">
+    <p>Offset on the Wasm heap.</p>
+</div>
 
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -454,7 +499,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line51">line 51</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -472,12 +517,35 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
         
             
-<h4 class="name" id="owner"><span class="type-signature"></span>owner<span class="type-signature"></span></h4>
+<h4 class="name" id="owner"><span class="type-signature"></span>owner<span class="type-signature"> :object|<a href="WasmArray.html">WasmArray</a></span></h4>
 
 
 
 
+<div class="description">
+    <p>This property contains information about the owner of the allocation on the Wasm heap.
+The most common value of this property will be <code>null</code>, indicating that the current WasmArray instance is the owner of the allocation on the Wasm heap.
+This is the only setting where <a href="WasmArray.html#free"><code>free</code></a> has any effect.</p>
+<p>Any non-<code>null</code> value indicates that the current instance is just a view into an allocation owned by another entity.
+If the value is a reference to another WasmArray, then the returned object is the actual owner of the allocation.</p>
+<p>In some cases, <code>owner</code> may be an empty (non-<code>null</code>) object.
+This indicates that the allocation is owned by some unknown entity, e.g., a view directly returned by Emscripten's bindings without involving a WasmArray instance.</p>
+</div>
 
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+|
+
+<span class="param-type"><a href="WasmArray.html">WasmArray</a></span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -512,7 +580,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line74">line 74</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -530,12 +598,26 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
         
             
-<h4 class="name" id="space"><span class="type-signature"></span>space<span class="type-signature"></span></h4>
+<h4 class="name" id="space"><span class="type-signature"></span>space<span class="type-signature"> :number</span></h4>
 
 
 
 
+<div class="description">
+    <p>Identifier for the Wasm memory space.</p>
+</div>
 
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -606,7 +688,7 @@ use the <code>createWasmArray()</code> function instead.</p></td>
 
 
 <div class="description">
-    <p>Create a <code>WasmArray</code> clone of this object.</p>
+    <p>Create a WasmArray clone of this object.</p>
 </div>
 
 
@@ -700,7 +782,7 @@ If not specified, we use the memory space of this object.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line150">line 150</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -729,7 +811,7 @@ If not specified, we use the memory space of this object.</p></td>
 
         
 <div class="param-desc">
-    <p>A new <code>WasmArray</code> of the same type and filled with the same contents.
+    <p>A new WasmArray of the same type and filled with the same contents.
 This refers to a separate allocation on the requested space.</p>
 </div>
 
@@ -927,7 +1009,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line90">line 90</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -1025,7 +1107,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line201">line 201</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -1223,7 +1305,7 @@ Defaults to the start of the array.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line110">line 110</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -1277,7 +1359,7 @@ Defaults to the start of the array.</p></td>
 
 
 <div class="description">
-    <p>Create a <code>TypedArray</code> slice of the data in the allocated array.</p>
+    <p>Create a TypedArray slice of the data in the allocated array.</p>
 </div>
 
 
@@ -1418,7 +1500,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line131">line 131</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -1447,8 +1529,8 @@ Only used if <code>start</code> is specified.</p></td>
 
         
 <div class="param-desc">
-    <p>A <code>TypedArray</code> containing the specified subarray.
-This is not a view on the Wasm heap and thus can continue to be used after Wasm allocations.</p>
+    <p>A TypedArray containing the specified subarray.
+This is not a view on the Wasm heap and thus can be safely used after any further Wasm allocations.</p>
 </div>
 
 
@@ -1473,7 +1555,7 @@ This is not a view on the Wasm heap and thus can continue to be used after Wasm 
 
 
 <div class="description">
-    <p>Create a <code>WasmArray</code> &quot;view&quot; of the data in this object.</p>
+    <p>Create a WasmArray &quot;view&quot; of the data in this object.</p>
 </div>
 
 
@@ -1614,7 +1696,7 @@ Only used if <code>start</code> is specified.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="base.js.html">base.js</a>, <a href="base.js.html#line175">line 175</a>
+        <a href="base.js.html">base.js</a>, <a href="base.js.html#line180">line 180</a>
     </li></ul></dd>
     
 
@@ -1643,11 +1725,11 @@ Only used if <code>start</code> is specified.</p></td>
 
         
 <div class="param-desc">
-    <p>A <code>WasmArray</code> containing a view on the specified subarray.</p>
-<p>The returned object does not own the memory on the Wasm heap, so <code>free()</code> will not have any effect.
-It does, however, hold a reference to its parent object, i.e., the <code>WasmArray</code> instance on which <code>view()</code> was called.
-This reference avoids premature garbage collection of the parent and inadvertent invalidation of the views.
-Of course, all views will be invalidated if the parent's <code>free()</code> method is invoked manually.</p>
+    <p>A WasmArray containing a view on the specified subarray.</p>
+<p>The returned object does not own the memory on the Wasm heap, so <a href="WasmArray.html#free"><code>free</code></a> will not have any effect.
+It does, however, hold a reference to its parent object, i.e., the current WasmArray instance on which <code>view</code> was called.
+This reference ensures that the parent is not prematurely garbage collected (thus invalidating the view when the Wasm allocation is freed).
+Of course, all views will be invalidated if the parent's <a href="WasmArray.html#free"><code>free</code></a> method is invoked manually.</p>
 </div>
 
 
@@ -1680,7 +1762,7 @@ Of course, all views will be invalidated if the parent's <code>free()</code> met
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 01:20:25 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 05:51:45 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
