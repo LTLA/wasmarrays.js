@@ -203,3 +203,28 @@ export class Float64WasmArray extends WasmArray {
      */
     static valueSize = 8;
 }
+
+const choices = {
+    "Uint8WasmArray": Uint8WasmArray,
+    "Int8WasmArray": Int8WasmArray,
+    "Uint16WasmArray": Uint16WasmArray,
+    "Int16WasmArray": Int16WasmArray,
+    "Uint32WasmArray": Uint32WasmArray,
+    "Int32WasmArray": Int32WasmArray,
+    "Float32WasmArray": Float32WasmArray,
+    "Float64WasmArray": Float64WasmArray
+};
+
+/**
+ * Retrieve class from its name.
+ *
+ * @param {string} name - Name of the class.
+ *
+ * @return Class object corresponding to `name`.
+ */
+export function stringToClass(name) {
+    if (!(name in choices)){ 
+        throw "unknown WasmArray class '" + name + "'";
+    }
+    return choices[name];
+}

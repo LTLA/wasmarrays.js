@@ -3,7 +3,8 @@ import {
     Int8WasmArray, Uint8WasmArray,
     Int16WasmArray, Uint16WasmArray,
     Int32WasmArray, Uint32WasmArray,
-    Float32WasmArray, Float64WasmArray
+    Float32WasmArray, Float64WasmArray,
+    stringToClass
 } from "./derived.js";
 
 /**
@@ -22,22 +23,12 @@ import {
 export function convertToWasmArray(space, x, arrayClass) {
     if (typeof arrayClass === "undefined") {
         if (ArrayBuffer.isView(x)) {
-            let choices = {
-                "Uint8Array": Uint8WasmArray,
-                "Int8Array": Int8WasmArray,
-                "Uint16Array": Uint16WasmArray,
-                "Int16Array": Int16WasmArray,
-                "Uint32Array": Uint32WasmArray,
-                "Int32Array": Int32WasmArray,
-                "Float32Array": Float32WasmArray,
-                "Float64Array": Float64WasmArray
-            };
-
             let input = x.constructor.name;
-            if (!(input in choices)){ 
+            try {
+                arrayClass = stringToClass(input.replace("Array", "WasmArray"));
+            } catch (e) {
                 throw "unsupported TypedArray type '" + input + "'";
             }
-            arrayClass = choices[input];
         } else {
             arrayClass = Float64WasmArray;
         }
