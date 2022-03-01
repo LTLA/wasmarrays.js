@@ -2,7 +2,7 @@ import { buffer } from "./globals.js";
 import { WasmArray } from "./base.js";
 
 /** 
- * Wrapper around an unsigned 8-bit array allocated on the Wasm heap.
+ * Wrapper around an unsigned 8-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createUint8WasmArray} function.
  *
  * @augments WasmArray
@@ -30,7 +30,7 @@ export class Uint8WasmArray extends WasmArray {
 }
 
 /** 
- * Wrapper around a signed 8-bit array allocated on the Wasm heap.
+ * Wrapper around a signed 8-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createInt8WasmArray} function.
  *
  * @augments WasmArray
@@ -55,7 +55,7 @@ export class Int8WasmArray extends WasmArray {
 }
 
 /** 
- * Wrapper around an unsigned 16-bit array allocated on the Wasm heap.
+ * Wrapper around an unsigned 16-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createUint16WasmArray} function.
  *
  * @augments WasmArray
@@ -80,7 +80,7 @@ export class Uint16WasmArray extends WasmArray {
 }
 
 /** 
- * Manage a signed 16-bit array allocated on the Wasm heap.
+ * Manage a signed 16-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createInt16WasmArray} function.
  *
  * @augments WasmArray
@@ -105,7 +105,7 @@ export class Int16WasmArray extends WasmArray {
 }
 
 /** 
- * Manage an unsigned 32-bit array allocated on the Wasm heap.
+ * Manage an unsigned 32-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createUint32WasmArray} function.
  *
  * @augments WasmArray
@@ -130,7 +130,7 @@ export class Uint32WasmArray extends WasmArray {
 }
 
 /** 
- * Manage a signed 32-bit array allocated on the Wasm heap.
+ * Manage a signed 32-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createInt32WasmArray} function.
  *
  * @augments WasmArray
@@ -155,7 +155,7 @@ export class Int32WasmArray extends WasmArray {
 }
 
 /** 
- * Manage an unsigned 64-bit array allocated on the Wasm heap.
+ * Manage an unsigned 64-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createBigUint64WasmArray} function.
  *
  * @augments WasmArray
@@ -180,7 +180,7 @@ export class BigUint64WasmArray extends WasmArray {
 }
 
 /** 
- * Manage a signed 64-bit array allocated on the Wasm heap.
+ * Manage a signed 64-bit integer array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createBigInt64WasmArray} function.
  *
  * @augments WasmArray

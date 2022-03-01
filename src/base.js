@@ -15,9 +15,9 @@ export class WasmArray {
     /**
      * @param {number} space - Identifier for the Wasm memory space, as returned by {@linkcode register}.
      * @param {number} id - Identifier for this array in the specified space.
-     * @param {number} length - Length of the array.
+     * @param {number} length - Length of the array, in terms of the number of elements.
      * @param {number} offset - Offset on the Wasm heap.
-     * @param {(WasmArray|object)} owner - Owner of the memory, see the `owner` property for more details about acceptable values.
+     * @param {(WasmArray|object)} owner - Owner of the memory, see the {@linkcode WasmArray#owner owner} property for more details about acceptable values.
      *
      * @desc Users should not call this constructor directly; use the {@linkcode createWasmArray} function instead.
      */
@@ -40,7 +40,7 @@ export class WasmArray {
     /**
      * @member {number}
      * @desc Identifier for this array in the specified space.
-     * This may not have any meaningful value if this WasmArray instance is a view, see the `owner` property.
+     * This may not have any meaningful value if this WasmArray instance is a view, see the {@linkcode WasmArray#owner owner} property for details.
      */
     get id() {
         return this.#id;
@@ -48,7 +48,7 @@ export class WasmArray {
 
     /**
      * @member {number}
-     * @desc Offset on the Wasm heap.
+     * @desc Offset on the Wasm heap, in terms of the number of bytes.
      */
     get offset() {
         return this.#offset;
@@ -56,7 +56,7 @@ export class WasmArray {
 
     /**
      * @member {number}
-     * @desc Length of the array.
+     * @desc Length of the array, in terms of the number of elements (not bytes).
      */
     get length() {
         return this.#length;

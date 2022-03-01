@@ -93,6 +93,13 @@ This avoids the need to carry around start/end parameters when only a subset of 
 let view = my_array.view(20, 50);
 ```
 
+We can also create a view directly on the Wasm heap.
+This is helpful for wrapping allocations that are owned by other objects (e.g., instances of `embind`-ed C++ classes).
+
+```js
+let view2 = wa.createUint8WasmArrayView(my_array.space, my_array.length, my_array.offset);
+```
+
 ## Lifetime management
 
 For each `WasmArray` instance created with the `create*WasmArray()` functions, 
