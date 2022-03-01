@@ -3,6 +3,7 @@ import {
     Int8WasmArray, Uint8WasmArray,
     Int16WasmArray, Uint16WasmArray,
     Int32WasmArray, Uint32WasmArray,
+    BigInt64WasmArray, BigUint64WasmArray,
     Float32WasmArray, Float64WasmArray
 } from "./derived.js";
 
@@ -89,6 +90,30 @@ export function createUint32WasmArray(space, length) {
  */
 export function createInt32WasmArray(space, length) { 
     return createWasmArray(space, length, Int32WasmArray); 
+}
+
+/**
+ * Create a {@linkplain BigUint64WasmArray}.
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {number} length - Length of the array to allocate.
+ * 
+ * @return Instance of a {@linkplain BigUint64WasmArray}.
+ */
+export function createBigUint64WasmArray(space, length) { 
+    return createWasmArray(space, length, BigUint64WasmArray); 
+}
+
+/**
+ * Create a {@linkplain BigInt64WasmArray}.
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {number} length - Length of the array to allocate.
+ * 
+ * @return Instance of a {@linkplain BigInt64WasmArray}.
+ */
+export function createBigInt64WasmArray(space, length) { 
+    return createWasmArray(space, length, BigInt64WasmArray); 
 }
 
 /**

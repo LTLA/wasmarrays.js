@@ -155,6 +155,56 @@ export class Int32WasmArray extends WasmArray {
 }
 
 /** 
+ * Manage an unsigned 64-bit array allocated on the Wasm heap.
+ * Users may create instances using the {@linkcode createBigUint64WasmArray} function.
+ *
+ * @augments WasmArray
+ */
+export class BigUint64WasmArray extends WasmArray {
+    /**
+     * @return A BigUint64Array view of the allocated memory.
+     */
+    array() {
+        return new BigUint64Array(buffer(this.space), this.offset, this.length);
+    }
+
+    /**
+     * Name of the class.
+     */
+    static className = "BigUint64WasmArray";
+
+    /**
+     * Size of each data value, in bytes.
+     */
+    static valueSize = 8;
+}
+
+/** 
+ * Manage a signed 64-bit array allocated on the Wasm heap.
+ * Users may create instances using the {@linkcode createBigInt64WasmArray} function.
+ *
+ * @augments WasmArray
+ */
+export class BigInt64WasmArray extends WasmArray {
+    /**
+     * @return An BigInt64Array view of the allocated memory.
+     */
+    array() {
+        return new BigInt64Array(buffer(this.space), this.offset, this.length);
+    }
+
+    /**
+     * @return Name of the class.
+     */
+    static className = "BigInt64WasmArray";
+
+    /**
+     * Size of each data value, in bytes.
+     */
+    static valueSize = 8;
+}
+
+/** 
  * Manage a 32-bit float array allocated on the Wasm heap.
  * Users may create instances using the {@linkcode createFloat32WasmArray} function.
  *
@@ -211,6 +261,8 @@ const choices = {
     "Int16WasmArray": Int16WasmArray,
     "Uint32WasmArray": Uint32WasmArray,
     "Int32WasmArray": Int32WasmArray,
+    "BigUint64WasmArray": BigUint64WasmArray,
+    "BigInt64WasmArray": BigInt64WasmArray,
     "Float32WasmArray": Float32WasmArray,
     "Float64WasmArray": Float64WasmArray
 };

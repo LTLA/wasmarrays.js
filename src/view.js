@@ -2,6 +2,7 @@ import {
     Int8WasmArray, Uint8WasmArray,
     Int16WasmArray, Uint16WasmArray,
     Int32WasmArray, Uint32WasmArray,
+    BigInt64WasmArray, BigUint64WasmArray,
     Float32WasmArray, Float64WasmArray
 } from "./derived.js";
 
@@ -97,6 +98,33 @@ export function createUint32WasmArrayView(space, length, offset) {
 export function createInt32WasmArrayView(space, length, offset) { 
     return createWasmArrayView(space, length, offset, Int32WasmArray); 
 }
+
+/**
+ * Create a {@linkplain BigUint64WasmArray} view.
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of a {@linkplain BigUint64WasmArray} view.
+ */
+export function createBigUint64WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, BigUint64WasmArray); 
+}
+
+/**
+ * Create an {@linkplain BigInt64WasmArray} view.
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {number} length - Length of the view, in terms of the number of data elements.
+ * @param {number} offset - Offset on the Wasm heap to start the view.
+ * 
+ * @return Instance of an {@linkplain BigInt64WasmArray} view.
+ */
+export function createBigInt64WasmArrayView(space, length, offset) { 
+    return createWasmArrayView(space, length, offset, BigInt64WasmArray); 
+}
+
 
 /**
  * Create a {@linkplain Float32WasmArray} view.

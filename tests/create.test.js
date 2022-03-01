@@ -70,6 +70,14 @@ test("Int32WasmArrays can be created", () => {
     creation_test_suite(wa.createInt32WasmArray, "Int32WasmArray", 4);
 });
 
+test("BigUint64WasmArrays can be created", () => {
+    creation_test_suite(wa.createBigUint64WasmArray, "BigUint64WasmArray", 8);
+});
+
+test("BigInt64WasmArrays can be created", () => {
+    creation_test_suite(wa.createBigInt64WasmArray, "BigInt64WasmArray", 8);
+});
+
 test("Float32WasmArrays can be created", () => {
     creation_test_suite(wa.createFloat32WasmArray, "Float32WasmArray", 4);
 });

@@ -2,8 +2,9 @@
 import * as wa from "../src/index.js";
 import { mockWasmHeap } from "./mock.js";
 import { compareArrays } from "./compare.js";
+import { biggify } from "./biggify.js";
 
-function methods_test_suite(creator, expectedClass) {
+function methods_test_suite(creator, expectedClass, big = false) {
     let mocked = mockWasmHeap();
     let space = wa.register(mocked);
 
@@ -20,7 +21,7 @@ function methods_test_suite(creator, expectedClass) {
     for (var i = 0; i < x.length; i++) {
         let val = Math.random() * 100;
         val = Math.round(val);
-        values.push(val);
+        values.push(biggify(val, big));
     }
     x.set(values);
     compareArrays(values, x.array());
@@ -34,19 +35,25 @@ function methods_test_suite(creator, expectedClass) {
     compareArrays(values.slice(2, 8), x.slice(2, 8));
 
     // More setting.
-    let counter = [1,2,3];
+    let counter = [];
+    for (var i = 0; i < 4; ++i) {
+        counter.push(biggify(i, big));
+    }
+
     let shift = 3;
     for (var i = 0; i < counter.length; i++) {
         values[i + shift] = counter[i];
     }
+
     x.set(counter, 3);
     compareArrays(values, x.array());
 
     // Filling.
-    x.fill(0);
+    let zero = biggify(0, big);
+    x.fill(zero);
     let aa = x.array();
     for (var i = 0; i < x.length; i++) {
-        expect(aa[i]).toBe(0);
+        expect(aa[i]).toBe(zero);
     }
 
     // Creating a clone.
@@ -82,6 +89,14 @@ test("Uint32WasmArray methods work correctly", () => {
 
 test("Int32WasmArray methods work correctly", () => {
     methods_test_suite(wa.createInt32WasmArray, "Int32Array");
+});
+
+test("BigUint64WasmArray methods work correctly", () => {
+    methods_test_suite(wa.createBigUint64WasmArray, "BigUint64Array", true);
+});
+
+test("BigInt64WasmArray methods work correctly", () => {
+    methods_test_suite(wa.createBigInt64WasmArray, "BigInt64Array", true);
 });
 
 test("Float32WasmArray methods work correctly", () => {

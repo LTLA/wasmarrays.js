@@ -3,6 +3,7 @@ import {
     Int8WasmArray, Uint8WasmArray,
     Int16WasmArray, Uint16WasmArray,
     Int32WasmArray, Uint32WasmArray,
+    BigInt64WasmArray, BigUint64WasmArray,
     Float32WasmArray, Float64WasmArray,
     stringToClass
 } from "./derived.js";
@@ -127,6 +128,30 @@ export function convertToUint32WasmArray(space, x) {
  */
 export function convertToInt32WasmArray(space, x) {
     return convertToWasmArray(space, x, Int32WasmArray);    
+}
+
+/**
+ * Convert a (Typed)Array into a new {@linkplain BigUint64WasmArray}. 
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {(Array|TypedArray)} x - Array to be converted.
+ *
+ * @return Instance of a {@linkplain BigUint64WasmArray} subclass containing the same contents as `x`.
+ */
+export function convertToBigUint64WasmArray(space, x) {
+    return convertToWasmArray(space, x, BigUint64WasmArray);    
+}
+
+/**
+ * Convert a (Typed)Array into a new {@linkplain BigInt64WasmArray}. 
+ *
+ * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
+ * @param {(Array|TypedArray)} x - Array to be converted.
+ *
+ * @return Instance of a {@linkplain BigInt64WasmArray} subclass containing the same contents as `x`.
+ */
+export function convertToBigInt64WasmArray(space, x) {
+    return convertToWasmArray(space, x, BigInt64WasmArray);    
 }
 
 /**

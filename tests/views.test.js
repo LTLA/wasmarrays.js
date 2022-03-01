@@ -1,8 +1,9 @@
 // This tests the view creation on WasmArrays.
 import * as wa from "../src/index.js";
 import { mockWasmHeap } from "./mock.js";
+import { biggify } from "./biggify.js";
 
-function view_method_test_suite(creator, expectedClass) {
+function view_method_test_suite(creator, expectedClass, big = false) {
     let mocked = mockWasmHeap();
     let space = wa.register(mocked);
 
@@ -11,7 +12,8 @@ function view_method_test_suite(creator, expectedClass) {
 
     let y = x.array();
     for (var i = 0; i < y.length; i++) {
-        y[i] = Math.random() * 100;
+        let val = Math.round(Math.random() * 100);
+        y[i] = biggify(val, big);
     }
 
     // Creating a view.
@@ -49,7 +51,7 @@ function view_method_test_suite(creator, expectedClass) {
     expect(mocked.freed.length).toBe(0);
 }
 
-function view_create_test_suite(creator, expectedClass) {
+function view_create_test_suite(creator, expectedClass, big = false) {
     let mocked = mockWasmHeap();
     let space = wa.register(mocked);
 
@@ -66,7 +68,8 @@ function view_create_test_suite(creator, expectedClass) {
     // It can be filled with no problem.
     let y = x.array();
     for (var i = 0; i < y.length; i++) {
-        y[i] = Math.random() * 100;
+        let val = Math.round(Math.random() * 100);
+        y[i] = biggify(val, big);
     }
 
     // Deletion of the view is a no-op.
@@ -102,6 +105,16 @@ test("Uint32WasmArray views can be created", () => {
 test("Int32WasmArray views can be created", () => {
     view_method_test_suite(wa.createInt32WasmArray, "Int32WasmArray");
     view_create_test_suite(wa.createInt32WasmArrayView, "Int32WasmArray");
+});
+
+test("BigUint64WasmArray views can be created", () => {
+    view_method_test_suite(wa.createBigUint64WasmArray, "BigUint64WasmArray", true);
+    view_create_test_suite(wa.createBigUint64WasmArrayView, "BigUint64WasmArray", true);
+});
+
+test("BigInt64WasmArray views can be created", () => {
+    view_method_test_suite(wa.createBigInt64WasmArray, "BigInt64WasmArray", true);
+    view_create_test_suite(wa.createBigInt64WasmArrayView, "BigInt64WasmArray", true);
 });
 
 test("Float32WasmArray views can be created", () => {
