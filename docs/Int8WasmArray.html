@@ -30,7 +30,7 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>Int8WasmArray<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Wrapper around a signed 8-bit array allocated on the Wasm heap.
+            <div class="class-description"><p>Wrapper around a signed 8-bit integer array allocated on the Wasm heap.
 Users may create instances using the <a href="global.html#createInt8WasmArray"><code>createInt8WasmArray</code></a> function.</p></div>
         
     
@@ -224,7 +224,7 @@ Users may create instances using the <a href="global.html#createInt8WasmArray"><
 
 <div class="description">
     <p>Identifier for this array in the specified space.
-This may not have any meaningful value if this WasmArray instance is a view, see the <code>owner</code> property.</p>
+This may not have any meaningful value if this WasmArray instance is a view, see the <a href="WasmArray.html#owner"><code>owner</code></a> property for details.</p>
 </div>
 
 
@@ -301,7 +301,7 @@ This may not have any meaningful value if this WasmArray instance is a view, see
 
 
 <div class="description">
-    <p>Length of the array.</p>
+    <p>Length of the array, in terms of the number of elements (not bytes).</p>
 </div>
 
 
@@ -378,7 +378,7 @@ This may not have any meaningful value if this WasmArray instance is a view, see
 
 
 <div class="description">
-    <p>Offset on the Wasm heap.</p>
+    <p>Offset on the Wasm heap, in terms of the number of bytes.</p>
 </div>
 
 
@@ -1884,13 +1884,13 @@ Of course, all views will be invalidated if the parent's <a href="WasmArray.html
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Float32WasmArray.html">Float32WasmArray</a></li><li><a href="Float64WasmArray.html">Float64WasmArray</a></li><li><a href="Int8WasmArray.html">Int8WasmArray</a></li><li><a href="Int16WasmArray.html">Int16WasmArray</a></li><li><a href="Int32WasmArray.html">Int32WasmArray</a></li><li><a href="Uint8WasmArray.html">Uint8WasmArray</a></li><li><a href="Uint16WasmArray.html">Uint16WasmArray</a></li><li><a href="Uint32WasmArray.html">Uint32WasmArray</a></li><li><a href="WasmArray.html">WasmArray</a></li></ul><h3>Global</h3><ul><li><a href="global.html#convertToFloat32WasmArray">convertToFloat32WasmArray</a></li><li><a href="global.html#convertToFloat64WasmArray">convertToFloat64WasmArray</a></li><li><a href="global.html#convertToInt8WasmArray">convertToInt8WasmArray</a></li><li><a href="global.html#convertToInt16WasmArray">convertToInt16WasmArray</a></li><li><a href="global.html#convertToInt32WasmArray">convertToInt32WasmArray</a></li><li><a href="global.html#convertToUint8WasmArray">convertToUint8WasmArray</a></li><li><a href="global.html#convertToUint16WasmArray">convertToUint16WasmArray</a></li><li><a href="global.html#convertToUint32WasmArray">convertToUint32WasmArray</a></li><li><a href="global.html#convertToWasmArray">convertToWasmArray</a></li><li><a href="global.html#createFloat32WasmArray">createFloat32WasmArray</a></li><li><a href="global.html#createFloat32WasmArrayView">createFloat32WasmArrayView</a></li><li><a href="global.html#createFloat64WasmArray">createFloat64WasmArray</a></li><li><a href="global.html#createFloat64WasmArrayView">createFloat64WasmArrayView</a></li><li><a href="global.html#createInt8WasmArray">createInt8WasmArray</a></li><li><a href="global.html#createInt8WasmArrayView">createInt8WasmArrayView</a></li><li><a href="global.html#createInt16WasmArray">createInt16WasmArray</a></li><li><a href="global.html#createInt16WasmArrayView">createInt16WasmArrayView</a></li><li><a href="global.html#createInt32WasmArray">createInt32WasmArray</a></li><li><a href="global.html#createInt32WasmArrayView">createInt32WasmArrayView</a></li><li><a href="global.html#createUint8WasmArray">createUint8WasmArray</a></li><li><a href="global.html#createUint8WasmArrayView">createUint8WasmArrayView</a></li><li><a href="global.html#createUint16WasmArray">createUint16WasmArray</a></li><li><a href="global.html#createUint16WasmArrayView">createUint16WasmArrayView</a></li><li><a href="global.html#createUint32WasmArray">createUint32WasmArray</a></li><li><a href="global.html#createUint32WasmArrayView">createUint32WasmArrayView</a></li><li><a href="global.html#createWasmArray">createWasmArray</a></li><li><a href="global.html#createWasmArrayView">createWasmArrayView</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#stringToClass">stringToClass</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BigInt64WasmArray.html">BigInt64WasmArray</a></li><li><a href="BigUint64WasmArray.html">BigUint64WasmArray</a></li><li><a href="Float32WasmArray.html">Float32WasmArray</a></li><li><a href="Float64WasmArray.html">Float64WasmArray</a></li><li><a href="Int8WasmArray.html">Int8WasmArray</a></li><li><a href="Int16WasmArray.html">Int16WasmArray</a></li><li><a href="Int32WasmArray.html">Int32WasmArray</a></li><li><a href="Uint8WasmArray.html">Uint8WasmArray</a></li><li><a href="Uint16WasmArray.html">Uint16WasmArray</a></li><li><a href="Uint32WasmArray.html">Uint32WasmArray</a></li><li><a href="WasmArray.html">WasmArray</a></li></ul><h3>Global</h3><ul><li><a href="global.html#convertToBigInt64WasmArray">convertToBigInt64WasmArray</a></li><li><a href="global.html#convertToBigUint64WasmArray">convertToBigUint64WasmArray</a></li><li><a href="global.html#convertToFloat32WasmArray">convertToFloat32WasmArray</a></li><li><a href="global.html#convertToFloat64WasmArray">convertToFloat64WasmArray</a></li><li><a href="global.html#convertToInt8WasmArray">convertToInt8WasmArray</a></li><li><a href="global.html#convertToInt16WasmArray">convertToInt16WasmArray</a></li><li><a href="global.html#convertToInt32WasmArray">convertToInt32WasmArray</a></li><li><a href="global.html#convertToUint8WasmArray">convertToUint8WasmArray</a></li><li><a href="global.html#convertToUint16WasmArray">convertToUint16WasmArray</a></li><li><a href="global.html#convertToUint32WasmArray">convertToUint32WasmArray</a></li><li><a href="global.html#convertToWasmArray">convertToWasmArray</a></li><li><a href="global.html#createBigInt64WasmArray">createBigInt64WasmArray</a></li><li><a href="global.html#createBigInt64WasmArrayView">createBigInt64WasmArrayView</a></li><li><a href="global.html#createBigUint64WasmArray">createBigUint64WasmArray</a></li><li><a href="global.html#createBigUint64WasmArrayView">createBigUint64WasmArrayView</a></li><li><a href="global.html#createFloat32WasmArray">createFloat32WasmArray</a></li><li><a href="global.html#createFloat32WasmArrayView">createFloat32WasmArrayView</a></li><li><a href="global.html#createFloat64WasmArray">createFloat64WasmArray</a></li><li><a href="global.html#createFloat64WasmArrayView">createFloat64WasmArrayView</a></li><li><a href="global.html#createInt8WasmArray">createInt8WasmArray</a></li><li><a href="global.html#createInt8WasmArrayView">createInt8WasmArrayView</a></li><li><a href="global.html#createInt16WasmArray">createInt16WasmArray</a></li><li><a href="global.html#createInt16WasmArrayView">createInt16WasmArrayView</a></li><li><a href="global.html#createInt32WasmArray">createInt32WasmArray</a></li><li><a href="global.html#createInt32WasmArrayView">createInt32WasmArrayView</a></li><li><a href="global.html#createUint8WasmArray">createUint8WasmArray</a></li><li><a href="global.html#createUint8WasmArrayView">createUint8WasmArrayView</a></li><li><a href="global.html#createUint16WasmArray">createUint16WasmArray</a></li><li><a href="global.html#createUint16WasmArrayView">createUint16WasmArrayView</a></li><li><a href="global.html#createUint32WasmArray">createUint32WasmArray</a></li><li><a href="global.html#createUint32WasmArrayView">createUint32WasmArrayView</a></li><li><a href="global.html#createWasmArray">createWasmArray</a></li><li><a href="global.html#createWasmArrayView">createWasmArrayView</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#stringToClass">stringToClass</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sun Feb 27 2022 06:23:01 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 01 2022 19:23:15 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
