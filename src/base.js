@@ -209,4 +209,80 @@ export class WasmArray {
             this.#offset = null;
         }
     }
+
+    /**
+     * Iterate across the values of the WasmArray.
+     *
+     * @return An array iterator function.
+     */
+    [Symbol.iterator]() {
+        return this.values();
+    }
+
+    /**
+     * Iterate across the values of the WasmArray.
+     *
+     * @return An array iterator function.
+     */
+    values() {
+        return this.array().values();
+    }
+
+    /**
+     * Iterate across the keys (i.e., indices) of the WasmArray.
+     *
+     * @return An array iterator function.
+     */
+    keys() {
+        return this.array().keys();
+    }
+
+    /**
+     * Obtain the value at the specified index.
+     *
+     * @param {number} index - Position of the array.
+     * This may be negative to indicate indexing from the end of the array.
+     *
+     * @return The value of the array at the requested index.
+     */
+    at(index) {
+        return this.array().at(index);
+    }
+
+    /**
+     * Apply a function to each element in the array, equivalent to the counterpart for Arrays.
+     *
+     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/forEach).
+     * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
+     *
+     * @return `undefined`.
+     */
+    forEach(callbackFn, thisArg) {
+        this.array().forEach(callbackFn, thisArg);
+        return;
+    }
+
+    /**
+     * Create a new TypedArray with all elements that pass the filter.
+     *
+     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/filter).
+     * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
+     *
+     * @return A TypedArray that contains only the elements passing the filter.
+     */
+    filter(callbackFn, thisArg) {
+        return this.array().filter(callbackFn, thisArg);
+    }
+
+    /**
+     * Create a new TypedArray from evaluating the callback on each element.
+     *
+     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/map).
+     * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
+     *
+     * @return A TypedArray containing the result of `callbackFn` on each element.
+     */
+    map(callbackFn, thisArg) { 
+        return this.array().map(callbackFn, thisArg);
+    }
 }

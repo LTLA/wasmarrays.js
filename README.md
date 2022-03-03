@@ -51,9 +51,9 @@ This view can be used to write or read values from the Wasm heap.
 However, some caution is required as it seems that views can be invalidated when the heap is resized.
 We generally recommend only creating a view immediately before its use, i.e., there should be no Wasm allocations after the creation of a view but before its use.
 
-For greater robustness to resizing, we provide some methods for the `WasmArray` to mimic its `TypedArray` view.
-This avoids exposing the creation of a view in the caller's code, avoiding any problems with intervening allocations. 
-Note that `slice()` methods return a `TypedArray` with its own `ArrayBuffer` that is not susceptible to issues with Wasm heap resizing.
+For greater robustness to heap resizing, we provide some methods for the `WasmArray` to mimic its `TypedArray` view.
+This avoids exposing the creation of a view in the caller's code, avoiding any problems from intervening allocations. 
+Note that `slice()` methods return a `TypedArray` with its own `ArrayBuffer` that is not susceptible to issues with resizing.
 
 ```js
 my_array.length; // 1000
@@ -69,6 +69,10 @@ my_array.fill(2, 300, 500); // fills [300m 500) with 2's.
 values = [1,2,3,4,5];
 my_array.set(values); // fills first five values with 1->5.
 my_array.set(values, 101); // fills 101->105 with 1->5.
+
+my_array.map((x) => x + 1); // new Uint8Array with +1 values.
+my_array.filter((x) => x > 5); // new Uint8Array containing all values > 5.
+my_array.forEach((x, i) => { /* do something */ });
 ```
 
 ## Interacting with the heap
