@@ -9,8 +9,11 @@ function creation_test_suite(creator, expectedClass, expectedSize) {
     // First creation works.
     let x = creator(space, 10);
     expect(x.constructor.className).toBe(expectedClass);
+    expect(x.constructor.valueSize).toBe(expectedSize);
+
     expect(x.offset).toBe(0);
     expect(x.length).toBe(10);
+    expect(x.byteLength).toBe(expectedSize * 10);
     expect(mocked.used).toBe(expectedSize * 10);
 
     // Second creation works.

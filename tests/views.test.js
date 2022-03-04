@@ -31,6 +31,9 @@ function view_method_test_suite(creator, expectedClass, big = false) {
     let v2 = x.view();
     expect(v2.length).toBe(x.length);
 
+    let v3 = x.subarray(2, 8); // alias.
+    expect(v3.length).toBe(6);
+
     // Checking owners.
     expect(x.owner).toBe(null);
     expect(x.id >= 0).toBe(true);
