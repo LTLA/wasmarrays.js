@@ -276,7 +276,7 @@ const choices = {
  */
 export function stringToClass(name) {
     if (!(name in choices)){ 
-        throw "unknown WasmArray class '" + name + "'";
+        throw new Error("unknown WasmArray class '" + name + "'");
     }
     return choices[name];
 }

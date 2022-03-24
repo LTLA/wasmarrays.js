@@ -28,7 +28,7 @@ export function convertToWasmArray(space, x, arrayClass) {
             try {
                 arrayClass = stringToClass(input.replace("Array", "WasmArray"));
             } catch (e) {
-                throw "unsupported TypedArray type '" + input + "'";
+                throw new Error("unsupported TypedArray type '" + input + "'");
             }
         } else {
             arrayClass = Float64WasmArray;
