@@ -14,12 +14,17 @@ jobs:
     - name: Set up Node
       uses: actions/setup-node@v2
 
-    - name: Install JSDoc
-      run: npm i jsdoc
+    - name: Restore the node modules
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: modules-${{ hashFiles('**/package.json') }}
+
+    - name: Install node modules
+      run: npm i --include-dev
 
     - name: Run JSDoc
-      run: |
-        node_modules/jsdoc/jsdoc.js src/ README.md -d docs/built/ -c docs/jsdoc.config.json
+      run: npm run jsdoc
 
     - name: GH Pages Deployment
       uses: JamesIves/github-pages-deploy-action@4.1.3

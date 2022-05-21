@@ -6,7 +6,8 @@
     "main": "src/index.js",
     "type": "module",
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "jsdoc": "npx jsdoc src README.md -d docs/built -c docs/jsdoc.config.json"
     },
     "devDependencies": {
         "docdash": "^1.2.0",
