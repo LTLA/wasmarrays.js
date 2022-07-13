@@ -14,7 +14,7 @@ function methods_test_suite(creator, expectedClass, big = false) {
     let y = x.array();
     expect(y.length).toBe(10);
     expect(y.constructor.name).toBe(expectedClass);
-    expect(y.buffer === mocked.wasmMemory.buffer).toBe(true);
+    expect(y.buffer === mocked.HEAP8.buffer).toBe(true);
 
     // Setting.
     let values = [];
@@ -30,7 +30,7 @@ function methods_test_suite(creator, expectedClass, big = false) {
     let z = x.slice();
     expect(z.constructor.name).toBe(expectedClass);
     compareArrays(values, x.slice());
-    expect(z.buffer !== mocked.wasmMemory.buffer).toBe(true);
+    expect(z.buffer !== mocked.HEAP8.buffer).toBe(true);
     compareArrays(values.slice(5), x.slice(5));
     compareArrays(values.slice(2, 8), x.slice(2, 8));
 

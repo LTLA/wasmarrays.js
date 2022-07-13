@@ -39,7 +39,7 @@ export function allocate(space, length, arrayClass) {
 
 export function buffer(space) {
     let curmod = memories[space].module;
-    return curmod.wasmMemory.buffer;
+    return curmod.HEAP8.buffer;
 }
 
 const finalizer = new FinalizationRegistry(held => {

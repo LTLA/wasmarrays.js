@@ -1,7 +1,7 @@
 // Mocking up a Wasm heap.
 export function mockWasmHeap() {
     let stuff = {
-        wasmMemory: {
+        HEAP8: {
             buffer: new ArrayBuffer(1000),
         },
         used: 0,
@@ -12,7 +12,7 @@ export function mockWasmHeap() {
         let position = stuff.used;
         let needed = stuff.used + n;
 
-        if (needed > stuff.wasmMemory.buffer.byteLength) {
+        if (needed > stuff.HEAP8.buffer.byteLength) {
             throw "this is just a dummy, stupid!"
         }
 
