@@ -53,7 +53,7 @@ var spaces = 0;
  *
  * @param {object} module - A Wasm module object, usually produced by Emscripten.
  *
- * @return Integer containing the identifier for this module's memory space.
+ * @return {number} Integer containing the identifier for this module's memory space.
  */
 export function register(module) {
     let space = spaces;

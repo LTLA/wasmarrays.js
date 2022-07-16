@@ -14,7 +14,7 @@ import {
  * @param {number} length - Length of the array to allocate.
  * @param {class} arrayClass - Desired subclass of the {@linkplain WasmArray}.
  * 
- * @return Instance of a {@linkplain WasmArray} subclass.
+ * @return {WasmArray} Instance of a {@linkplain WasmArray} subclass.
  */
 export function createWasmArray(space, length, arrayClass) {
     return allocate(space, length, arrayClass);
@@ -26,7 +26,7 @@ export function createWasmArray(space, length, arrayClass) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Uint8WasmArray}.
+ * @return {Uint8WasmArray} Instance of a {@linkplain Uint8WasmArray}.
  */
 export function createUint8WasmArray(space, length) { 
     return createWasmArray(space, length, Uint8WasmArray); 
@@ -38,7 +38,7 @@ export function createUint8WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Int8WasmArray}.
+ * @return {Int8WasmArray} Instance of a {@linkplain Int8WasmArray}.
  */
 export function createInt8WasmArray(space, length) { 
     return createWasmArray(space, length, Int8WasmArray); 
@@ -50,7 +50,7 @@ export function createInt8WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Uint16WasmArray}.
+ * @return {Uint16WasmArray} Instance of a {@linkplain Uint16WasmArray}.
  */
 export function createUint16WasmArray(space, length) { 
     return createWasmArray(space, length, Uint16WasmArray); 
@@ -62,7 +62,7 @@ export function createUint16WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Int16WasmArray}.
+ * @return {Int16WasmArray} Instance of a {@linkplain Int16WasmArray}.
  */
 export function createInt16WasmArray(space, length) { 
     return createWasmArray(space, length, Int16WasmArray); 
@@ -74,7 +74,7 @@ export function createInt16WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Uint32WasmArray}.
+ * @return {Uint32WasmArray} Instance of a {@linkplain Uint32WasmArray}.
  */
 export function createUint32WasmArray(space, length) { 
     return createWasmArray(space, length, Uint32WasmArray); 
@@ -86,7 +86,7 @@ export function createUint32WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Int32WasmArray}.
+ * @return {Int32WasmArray} Instance of a {@linkplain Int32WasmArray}.
  */
 export function createInt32WasmArray(space, length) { 
     return createWasmArray(space, length, Int32WasmArray); 
@@ -98,7 +98,7 @@ export function createInt32WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain BigUint64WasmArray}.
+ * @return {BigUint64WasmArray} Instance of a {@linkplain BigUint64WasmArray}.
  */
 export function createBigUint64WasmArray(space, length) { 
     return createWasmArray(space, length, BigUint64WasmArray); 
@@ -110,7 +110,7 @@ export function createBigUint64WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain BigInt64WasmArray}.
+ * @return {BigInt64WasmArray} Instance of a {@linkplain BigInt64WasmArray}.
  */
 export function createBigInt64WasmArray(space, length) { 
     return createWasmArray(space, length, BigInt64WasmArray); 
@@ -122,7 +122,7 @@ export function createBigInt64WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Float32WasmArray}.
+ * @return {Float32WasmArray} Instance of a {@linkplain Float32WasmArray}.
  */
 export function createFloat32WasmArray(space, length) { 
     return createWasmArray(space, length, Float32WasmArray); 
@@ -134,7 +134,7 @@ export function createFloat32WasmArray(space, length) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {number} length - Length of the array to allocate.
  * 
- * @return Instance of a {@linkplain Float64WasmArray}.
+ * @return {Float64WasmArray} Instance of a {@linkplain Float64WasmArray}.
  */
 export function createFloat64WasmArray(space, length) { 
     return createWasmArray(space, length, Float64WasmArray); 

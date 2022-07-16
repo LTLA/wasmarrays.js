@@ -4,6 +4,9 @@ import { allocate, release, buffer } from "./globals.js";
  * Wrapper around an array allocated on the Wasm heap.
  * This handles the memory management so that users don't have to manually free allocations 
  * (unless they want to, e.g., because they don't trust the timeliness of the Javascript engine's garbage collector).
+ * Users should not construct WasmArray instances directly; use the {@linkcode createWasmArray} function instead.
+ *
+ * @hideconstructor
  */
 export class WasmArray {
     #space;
@@ -12,15 +15,7 @@ export class WasmArray {
     #offset;
     #owner;
 
-    /**
-     * @param {number} space - Identifier for the Wasm memory space, as returned by {@linkcode register}.
-     * @param {number} id - Identifier for this array in the specified space.
-     * @param {number} length - Length of the array, in terms of the number of elements.
-     * @param {number} offset - Offset on the Wasm heap.
-     * @param {(WasmArray|object)} owner - Owner of the memory, see the {@linkcode WasmArray#owner owner} property for more details about acceptable values.
-     *
-     * @desc Users should not call this constructor directly; use the {@linkcode createWasmArray} function instead.
-     */
+    // See documentation below for details on each argument.
     constructor(space, id, length, offset, owner) {
         this.#space = space;
         this.#id = id;
@@ -114,7 +109,8 @@ export class WasmArray {
      * Defaults to the end of the array.
      * Only used if `start` is specified.
      *
-     * @return The array (or its specified subinterval) is filled with values from `x`.
+     * @return {TypedArray} The array (or its specified subinterval) is filled with `x`.
+     * A TypedArray view of the current WasmArray is returned.
      */
     fill(x, start, end) {
         let y = this.array();
@@ -145,7 +141,7 @@ export class WasmArray {
      * Defaults to the end of the array.
      * Only used if `start` is specified.
      *
-     * @return A TypedArray containing the specified subarray.
+     * @return {TypedArray} A TypedArray containing the specified subarray of this WasmArray.
      * This is not a view on the Wasm heap and thus can be safely used after any further Wasm allocations.
      */
     slice(start, end) {
@@ -158,7 +154,7 @@ export class WasmArray {
      * @param {number} space - Identifier for the Wasm memory space.
      * If not specified, we use the memory space of this object.
      *
-     * @return A new WasmArray of the same type and filled with the same contents.
+     * @return {WasmArray} A new WasmArray of the same type as this WasmArray, and filled with the same contents.
      * This refers to a separate allocation on the requested space.
      */
     clone(space) {
@@ -179,11 +175,11 @@ export class WasmArray {
      * Defaults to the end of the array.
      * Only used if `start` is specified.
      *
-     * @return A WasmArray containing a view on the specified subarray.
+     * @return {WasmArray} A WasmArray containing a view on the specified subarray of this WasmArray.
      *
      * The returned object does not own the memory on the Wasm heap, so {@linkcode WasmArray#free free} will not have any effect.
      * It does, however, hold a reference to its parent object, i.e., the current WasmArray instance on which `view` was called.
-     * This reference ensures that the parent is not prematurely garbage collected (thus invalidating the view when the Wasm allocation is freed).
+     * This reference ensures that the parent is not prematurely garbage collected, which would invalidate the view when the Wasm allocation is freed.
      * Of course, all views will be invalidated if the parent's {@linkcode WasmArray#free free} method is invoked manually.
      */
     view(start, end) {
@@ -223,7 +219,7 @@ export class WasmArray {
      * Iterate across the values of the WasmArray.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur during iteration.
      *
-     * @return An array iterator function.
+     * @return {object} An array iterator object.
      */
     [Symbol.iterator]() {
         return this.values();
@@ -233,7 +229,7 @@ export class WasmArray {
      * Iterate across the values of the WasmArray.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur during iteration.
      *
-     * @return An array iterator function.
+     * @return {object} An array iterator object.
      */
     values() {
         return this.array().values();
@@ -243,7 +239,7 @@ export class WasmArray {
      * Iterate across the keys (i.e., indices) of the WasmArray.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur during iteration.
      *
-     * @return An array iterator function.
+     * @return {object} An array iterator object.
      */
     keys() {
         return this.array().keys();
@@ -255,7 +251,7 @@ export class WasmArray {
      * @param {number} index - Position of the array.
      * This may be negative to indicate indexing from the end of the array.
      *
-     * @return The value of the array at the requested index.
+     * @return {number} The value of the array at the requested index.
      */
     at(index) {
         return this.array().at(index);
@@ -265,10 +261,11 @@ export class WasmArray {
      * Apply a callback function to each element in the array, equivalent to the counterpart for Arrays.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/forEach).
+     * @param {function} callbackFn - Callback function to be applied to each array element, 
+     * see the documentation for [`TypedArray.prototype.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/forEach).
      * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
      *
-     * @return `undefined`.
+     * @return `callBack` is applied to each element of the array. 
      */
     forEach(callbackFn, thisArg) {
         this.array().forEach(...arguments);
@@ -279,10 +276,12 @@ export class WasmArray {
      * Create a new TypedArray containing all elements in the WasmArray that pass the filter.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the filter.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/filter).
+     * @param {function} callbackFn - Callback function defining a filter,
+     * see the documentation for [`TypedArray.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/filter).
      * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
      *
-     * @return A TypedArray that contains only the elements passing the filter.
+     * @return {TypedArray} A TypedArray that contains only the elements passing the filter.
+     * This is not a view on the Wasm heap and thus can be safely used after any further Wasm allocations.
      */
     filter(callbackFn, thisArg) {
         return this.array().filter(...arguments);
@@ -292,10 +291,12 @@ export class WasmArray {
      * Create a new TypedArray from evaluating the callback function on each element of the WasmArray.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/map).
+     * @param {function} callbackFn - Callback function that defines the mapping, 
+     * see the documentation for [`TypedArray.prototype.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/map).
      * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
      *
-     * @return A TypedArray containing the result of `callbackFn` on each element.
+     * @return {TypedArray} A TypedArray containing the result of `callbackFn` on each element.
+     * This is not a view on the Wasm heap and thus can be safely used after any further Wasm allocations.
      */
     map(callbackFn, thisArg) { 
         return this.array().map(...arguments);
@@ -307,7 +308,8 @@ export class WasmArray {
      * @param {number} [begin] - Index of the starting element, defaults to 0.
      * @param {number} [end] - Index of the final element plus 1, defaults to the length of the current array.
      *
-     * @return A TypedArray view of the requested subarray.
+     * @return {TypedArray} A TypedArray view of the requested subarray.
+     * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur during iteration.
      */
     subarray(begin, end) {
         return this.array().subarray(begin, end);
@@ -317,10 +319,11 @@ export class WasmArray {
      * Test whether every element in the WasmArray passes the test implemented by the callback function.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.every`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/every).
+     * @param {function} callbackFn - Callback function defining a condition for each array element, 
+     * see the documentation for [`TypedArray.prototype.every`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/every).
      * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
      *
-     * @return Boolean indicating whether the callback is truthy for each element in the WasmArray.
+     * @return {boolean} Whether the callback is truthy for each element in the WasmArray.
      */
     every(callbackFn, thisArg) {
         return this.array().every(...arguments);
@@ -330,10 +333,11 @@ export class WasmArray {
      * Test whether any element in the WasmArray passes the test implemented by the callback function.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.some`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/some).
+     * @param {function} callbackFn - Callback function defining a condition for each array element, 
+     * see the documentation for [`TypedArray.prototype.some`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/some).
      * @param {object} [thisArg] - Value to use as `this` when executing `callbackFn`.
      *
-     * @return Boolean indicating whether the callback is truthy for any element in the WasmArray.
+     * @return {boolean} Whether the callback is truthy for any element in the WasmArray.
      */
     some(callbackFn, thisArg) {
         return this.array().some(...arguments);
@@ -343,10 +347,11 @@ export class WasmArray {
      * Reduce the WasmArray into a single value by repeatedly applying a callback function from left to right.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/reduce).
-     * @param {object} [initialValue] - Initial value of the accumulator.
+     * @param {function} callbackFn - Callback function defining a reduction operation,
+     * see the documentation for [`TypedArray.prototype.reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/reduce).
+     * @param {*} [initialValue] - Initial value of the accumulator.
      *
-     * @return Result of the callback function.
+     * @return {*} Result of the callback function.
      */
     reduce(callbackFn, initialValue) {
         return this.array().reduce(...arguments);
@@ -356,10 +361,11 @@ export class WasmArray {
      * Reduce the WasmArray into a single value by repeatedly applying a callback function from right to left.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the callback.
      *
-     * @param {function} callbackFn - Callback function, see the documentation for [`TypedArray.prototype.reduceRight`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/reduceRight).
-     * @param {object} [initialValue] - Initial value of the accumulator.
+     * @param {function} callbackFn - Callback function defining the reduction operation,
+     * see the documentation for [`TypedArray.prototype.reduceRight`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/reduceRight).
+     * @param {*} [initialValue] - Initial value of the accumulator.
      *
-     * @return Result of the callback function.
+     * @return {*} Result of the callback function.
      */
     reduceRight(callbackFn, initialValue) {
         return this.array().reduceRight(...arguments);
@@ -369,9 +375,10 @@ export class WasmArray {
      * Sort the contents of the WasmArray.
      * Note that this relies on a TypedArray view and may not be valid if any Wasm heap allocations occur in the comparison function.
      *
-     * @param {function} compareFn - Function to define the sort order, see the documentation for [`TypedArray.prototype.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/sort).
+     * @param {function} compareFn - Function to define the sort order, 
+     * see the documentation for [`TypedArray.prototype.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/sort).
      *
-     * @return The contents of the WasmArray are sorted and a TypedArray view is returned.
+     * @return {TypedArray} The contents of the WasmArray are sorted in-place, and a TypedArray view is returned.
      */
     sort(compareFn) {
         return this.array().sort(compareFn);
@@ -380,7 +387,7 @@ export class WasmArray {
     /**
      * Reverse the contents of the WasmArray.
      *
-     * @return The contents of the WasmArray are reversed and a TypedArray view is returned.
+     * @return {TypeArray} The contents of the WasmArray are reversed in-place, and a TypedArray view is returned.
      */
     reverse() {
         return this.array().reverse();

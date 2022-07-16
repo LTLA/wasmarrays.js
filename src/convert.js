@@ -13,9 +13,9 @@ import {
  *
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
- * @param {class} [arrayClass] - Desired subclass of the {@linkplain WasmArray}.
+ * @param {class} arrayClass - Desired subclass of the {@linkplain WasmArray}.
  * 
- * @return Instance of a {@linkplain WasmArray} subclass containing the same contents as `x`.
+ * @return {WasmArray} Instance of a {@linkplain WasmArray} subclass containing the same contents as `x`.
  *
  * If `arrayClass` is not provided, it defaults to an appropriate type based on `x`.
  * For TypedArray inputs, this is the {@linkplain WasmArray} corresponding to the TypedArray subclass,
@@ -64,7 +64,7 @@ export function convertToWasmArray(space, x, arrayClass) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Uint8WasmArray} subclass containing the same contents as `x`.
+ * @return {Uint8WasmArray} Instance of a {@linkplain Uint8WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToUint8WasmArray(space, x) {
     return convertToWasmArray(space, x, Uint8WasmArray);    
@@ -76,7 +76,7 @@ export function convertToUint8WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Int8WasmArray} subclass containing the same contents as `x`.
+ * @return {Int8WasmArray} Instance of a {@linkplain Int8WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToInt8WasmArray(space, x) {
     return convertToWasmArray(space, x, Int8WasmArray);    
@@ -88,7 +88,7 @@ export function convertToInt8WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Uint16WasmArray} subclass containing the same contents as `x`.
+ * @return {Uint16WasmArray} Instance of a {@linkplain Uint16WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToUint16WasmArray(space, x) {
     return convertToWasmArray(space, x, Uint16WasmArray);    
@@ -100,7 +100,7 @@ export function convertToUint16WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Int16WasmArray} subclass containing the same contents as `x`.
+ * @return {Int16WasmArray} Instance of a {@linkplain Int16WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToInt16WasmArray(space, x) {
     return convertToWasmArray(space, x, Int16WasmArray);    
@@ -112,7 +112,7 @@ export function convertToInt16WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Uint32WasmArray} subclass containing the same contents as `x`.
+ * @return {Uint32WasmArray} Instance of a {@linkplain Uint32WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToUint32WasmArray(space, x) {
     return convertToWasmArray(space, x, Uint32WasmArray);    
@@ -124,7 +124,7 @@ export function convertToUint32WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Int32WasmArray} subclass containing the same contents as `x`.
+ * @return {Int32WasmArray} Instance of a {@linkplain Int32WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToInt32WasmArray(space, x) {
     return convertToWasmArray(space, x, Int32WasmArray);    
@@ -136,7 +136,7 @@ export function convertToInt32WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain BigUint64WasmArray} subclass containing the same contents as `x`.
+ * @return {BigUint64WasmArray} Instance of a {@linkplain BigUint64WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToBigUint64WasmArray(space, x) {
     return convertToWasmArray(space, x, BigUint64WasmArray);    
@@ -148,7 +148,7 @@ export function convertToBigUint64WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain BigInt64WasmArray} subclass containing the same contents as `x`.
+ * @return {BigInt64WasmArray} Instance of a {@linkplain BigInt64WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToBigInt64WasmArray(space, x) {
     return convertToWasmArray(space, x, BigInt64WasmArray);    
@@ -160,7 +160,7 @@ export function convertToBigInt64WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Float32WasmArray} subclass containing the same contents as `x`.
+ * @return {Float32WasmArray} Instance of a {@linkplain Float32WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToFloat32WasmArray(space, x) {
     return convertToWasmArray(space, x, Float32WasmArray);    
@@ -172,7 +172,7 @@ export function convertToFloat32WasmArray(space, x) {
  * @param {number} space - Identifier for the Wasm memory space, produced by {@linkcode register}.
  * @param {(Array|TypedArray)} x - Array to be converted.
  *
- * @return Instance of a {@linkplain Float64WasmArray} subclass containing the same contents as `x`.
+ * @return {Float64WasmArray} Instance of a {@linkplain Float64WasmArray} subclass containing the same contents as `x`.
  */
 export function convertToFloat64WasmArray(space, x) {
     return convertToWasmArray(space, x, Float64WasmArray);    
