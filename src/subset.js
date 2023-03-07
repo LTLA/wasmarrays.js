@@ -22,8 +22,8 @@ import { createWasmArray } from "./create.js";
  * If `null`, `subset` should instead contain the indices of elements to retain.
  * @param {?WasmArray} [options.buffer=null] - Array in which the output is to be stored.
  * If provided, this should be of length equal to `subset`, if `filter = null`; 
- * the number of falsey elements in `subset`, if `filter = false`;
- * or the number of truthy elements in `subset`, if `filter = true`.
+ * the number of truthy elements in `subset`, if `filter = false`;
+ * or the number of falsey elements in `subset`, if `filter = true`.
  *
  * @return {WasmArray} Array of the same type of `x` and in the same space, containing the desired subset `subset`.
  * If `buffer` is supplied, it is directly returned.
