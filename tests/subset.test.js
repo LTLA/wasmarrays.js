@@ -40,4 +40,10 @@ test("array subsetting works", () => {
         compareArrays(filtered.array(), [1, 2]);
         filtered.free();
     }
+
+    // Errors hit correctly.
+    {
+        expect(() => wa.subsetWasmArray(x, [], { filter: true })).toThrow("should have the same length");
+        expect(() => wa.subsetWasmArray(x, [10000])).toThrow("out-of-range");
+    }
 })
