@@ -187,6 +187,13 @@ test("safeSet works correctly for Array sources", () => {
     }
 
     {
+        let src2 = [true,2,false]
+        let dest = new Uint8Array(3);
+        wa.safeSet(src2, dest);
+        compareArrays([1,2,0], dest);
+    }
+
+    {
         let src2 = [1,2,3n];
         let dest = new Uint8Array(3);
         wa.safeSet(src2, dest);
@@ -217,17 +224,17 @@ test("safeSet works correctly for Array sources", () => {
         compareArrays([1n, 2n, 3n], dest);
     }
 
-    let variety = [1, 2, null, "foo", Number.NEGATIVE_INFINITY];
+    let variety = [1, 2, null, "foo", Number.NEGATIVE_INFINITY, true];
     {
-        let dest = new Float64Array(5);
+        let dest = new Float64Array(6);
         wa.safeSet(variety, dest, { action: "none", placeholder: -1 });
-        compareArrays([1, 2, -1, -1, Number.NEGATIVE_INFINITY], dest);
+        compareArrays([1, 2, -1, -1, Number.NEGATIVE_INFINITY, 1], dest);
     }
 
     {
-        let dest = new BigUint64Array(5);
+        let dest = new BigUint64Array(6);
         wa.safeSet(variety, dest, { action: "none", placeholder: 99 });
-        compareArrays([1n, 2n, 99n, 99n, 99n], dest);
+        compareArrays([1n, 2n, 99n, 99n, 99n, 1n], dest);
     }
 })
 

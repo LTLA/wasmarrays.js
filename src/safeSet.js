@@ -167,6 +167,8 @@ export function safeSet(from, to, { offset = 0, action = "warn", placeholder = 0
                     }
                 } else if (typeof y == "number") {
                     y = BigInt(sanitize_number(y));
+                } else if (typeof y == "boolean") {
+                    y = BigInt(y);
                 } else {
                     y = BigInt(doer(y))
                 }
@@ -185,7 +187,7 @@ export function safeSet(from, to, { offset = 0, action = "warn", placeholder = 0
     if (fromprop.array) {
         for (var i = 0; i < from.length; i++) {
             let y = from[i];
-            if (typeof y === "bigint") {
+            if (typeof y === "bigint" || typeof y == "boolean") {
                 y = Number(y);
             } else if (typeof y !== "number") {
                 y = doer(y);
