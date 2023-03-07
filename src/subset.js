@@ -1,6 +1,77 @@
 import { createWasmArray } from "./create.js";
 
 /**
+ * Helper utility to determine the length of a subset, for use in allocations.
+ *
+ * @param {(Array|TypedArray|WasmArray)} subset - Array specifying the subset to retain or filter out, depending on `filter`.
+ * See the argument of the same name in {@linkcode subsetWasmArray} for more details.
+ * @param {?boolean} filter - How to interpret `subset`.
+ * See the argument of the same name in {@linkcode subsetWasmArray} for more details.
+ * @param {number} targetLength - Length of the target vector to be subsetted by `subset`.
+ * @param {string} targetName - Name of the target vector, for use in error messages.
+ *
+ * @return {number} Length of the subsetted vector.
+ */
+export function checkSubsetLength(subset, filter, targetLength, targetName) {
+    if (filter === null) {
+        subset.forEach(i => {
+            if (i < 0 || i >= targetLength) {
+                throw new Error("'subset' contains out-of-range indices for '" + targetName + "'");
+            }
+        });
+        return subset.length;
+    } 
+
+    if (subset.length != targetLength) {
+        throw new Error("'subset' and '" + targetName + "' should have the same length");
+    }
+
+    let sum = 0;
+    subset.forEach(x => { sum += (x != 0); });
+    if (filter) {
+        return subset.length - sum;
+    } 
+
+    return sum;
+}
+
+/**
+ * Helper utility to fill a subset from one TypedArray to another.
+ *
+ * @param {(Array|TypedArray|WasmArray)} subset - Array specifying the subset to retain or filter out, depending on `filter`.
+ * See the argument of the same name in {@linkcode subsetWasmArray} for more details.
+ * @param {?boolean} filter - How to interpret `subset`.
+ * See the argument of the same name in {@linkcode subsetWasmArray} for more details.
+ * @param {TypedArray} input - Input array to subset.
+ * @param {TypedArray} output - Output array to store the subset, of length defined by {@linkcode checkSubsetLength}.
+ *
+ * @return `output` is filled with the specified subset of values from `input`.
+ */
+export function fillSubset(subset, filter, input, output) {
+    if (filter == null) {
+        subset.forEach((s, i) => {
+            output[i] = input[s];
+        });
+    } else if (filter) {
+        let j = 0;
+        subset.forEach((y, i) => {
+            if (y == 0) {
+                output[j] = input[i];
+                j++;
+            }
+        });
+    } else {
+        let j = 0;
+        subset.forEach((y, i) => {
+            if (y !== 0) {
+                output[j] = input[i];
+                j++;
+            }
+        });
+    }
+}
+
+/**
  * Create a new WasmArray from a subset of an existing WasmArray.
  * 
  * @param {WasmArray} x - The input WasmArray.
@@ -29,22 +100,7 @@ import { createWasmArray } from "./create.js";
  * If `buffer` is supplied, it is directly returned.
  */
 export function subsetWasmArray(x, subset, { filter = null, buffer = null } = {}) {
-    let len = 0;
-    if (filter === null) {
-        len = subset.length;
-    } else {
-        if (subset.length != x.length) {
-            throw new Error("'x' and 'filter' should have the same length");
-        }
-
-        let sum = 0;
-        subset.forEach(x => { sum += (x != 0); });
-        if (filter) {
-            len = subset.length - sum;
-        } else {
-            len = sum;
-        }
-    }
+    let len = checkSubsetLength(subset, filter, x.length, "x"); 
 
     if (buffer == null) {
         // Function better be a no-throw from now on.
@@ -55,28 +111,7 @@ export function subsetWasmArray(x, subset, { filter = null, buffer = null } = {}
 
     let barr = buffer.array();
     let xarr = x.array();
-
-    if (filter == null) {
-        subset.forEach((s, i) => {
-            barr[i] = xarr[s];
-        });
-    } else if (filter) {
-        let j = 0;
-        subset.forEach((y, i) => {
-            if (y == 0) {
-                barr[j] = xarr[i];
-                j++;
-            }
-        });
-    } else {
-        let j = 0;
-        subset.forEach((y, i) => {
-            if (y !== 0) {
-                barr[j] = xarr[i];
-                j++;
-            }
-        });
-    }
+    fillSubset(subset, filter, xarr, barr);
 
     return buffer;
 }
